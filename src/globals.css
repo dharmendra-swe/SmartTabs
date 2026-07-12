@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* --------------------------------------------------
+  SMARTTABS 2026 DESIGN SYSTEM
+  --------------------------------------------------
+*/
+
+@theme {
+    /* Injecting PRD Custom Palette */
+    --color-brand-primary: #2563EB;
+    --color-brand-accent: #4F46E5;
+    --color-brand-success: #22C55E;
+    --color-brand-warning: #F59E0B;
+    --color-brand-danger: #EF4444;
+
+    /* Global Radius (PRD specifies 18px) */
+    --radius-app: 18px;
+}
+
+@layer base {
+    :root {
+        /* Light Theme (Default) */
+        --bg-app: #F8FAFC;
+        --bg-card: #FFFFFF;
+        --bg-hover: #F1F5F9;
+
+        --text-primary: #0F172A;
+        --text-secondary: #64748B;
+        --text-muted: #94A3B8;
+
+        --border-subtle: #F1F5F9;
+        --border-main: #E5E7EB;
+        --border-focus: #2563EB;
+
+        --shadow-soft: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+        --shadow-elevated: 0 10px 30px -4px rgba(15, 23, 42, 0.08);
+    }
+
+    .dark {
+        /* Dark Theme */
+        --bg-app: #0B0F19;
+        /* Deep, calm dark */
+        --bg-card: #151C2C;
+        /* Slightly elevated */
+        --bg-hover: #1E293B;
+
+        --text-primary: #F8FAFC;
+        --text-secondary: #94A3B8;
+        --text-muted: #64748B;
+
+        --border-subtle: #1E293B;
+        --border-main: #334155;
+        --border-focus: #3B82F6;
+
+        --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+        --shadow-elevated: 0 10px 30px -4px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Core Resets & Typography */
+    html,
+    body {
+        @apply h-full w-full antialiased;
+        background-color: var(--bg-app);
+        color: var(--text-primary);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        /* Prevent layout shifts during tab loading */
+        overflow-y: overlay;
+    }
+
+    /* Smooth text rendering for a premium feel */
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        box-sizing: border-box;
+    }
+}
+
+@layer utilities {
+
+    /* Premium Card Utilities 
+    Ensures consistent 18px radius and soft shadows without heavy glassmorphism
+  */
+    .card-premium {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-app);
+        box-shadow: var(--shadow-soft);
+        transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-premium:hover {
+        box-shadow: var(--shadow-elevated);
+        border-color: var(--border-main);
+    }
+
+    /* Minimal Focus Rings (Accessibility) */
+    .focus-ring-minimal {
+        @apply outline-none ring-2 ring-offset-2 ring-offset-transparent transition-shadow duration-150;
+        --tw-ring-color: var(--border-focus);
+    }
+}
+
+/* --------------------------------------------------
+  CUSTOM SCROLLBARS (Arc / Notion Style)
+  --------------------------------------------------
+  Default Chrome scrollbars ruin the UI of an extension.
+  These are minimal, calm, and stay out of the way.
+*/
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-main);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+/* Hide scrollbar completely for specific lean UI elements if needed */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
