@@ -57,7 +57,7 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
                     onChange={(e) => handleUpdate({ name: e.target.value })}
                 />
                 <Button variant="primary" leftIcon={<Save className="w-4 h-4" />} onClick={onClose}>
-                    Save Workspace
+                    Save
                 </Button>
             </div>
 
