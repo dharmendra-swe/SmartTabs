@@ -42,10 +42,10 @@ export const SchedulesView: React.FC = () => {
 
             <Card className="p-6 bg-[var(--bg-card)] border-[var(--border-main)] mb-8 shadow-sm">
                 <form onSubmit={handleCreateSchedule} className="flex items-end gap-4">
-                    <div className="flex-1 space-y-2">
-                        <label className="text-[11px] font-bold text-[var(--text-secondary)] uppercase tracking-wider">Workspace</label>
+                    <div className="flex-1">
+                        <label className="block text-sm font-medium text-[#0F172A] mb-1.5">Workspace</label>
                         <select
-                            className="w-full h-10 px-3 bg-[var(--bg-app)] border border-[var(--border-main)] rounded-[12px] text-sm text-[var(--text-primary)] focus-ring-minimal"
+                            className="w-full bg-[#F8FAFC] border border-[#E5E7EB] text-[#0F172A] text-sm rounded-[12px] p-2.5 focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
                             value={selectedWorkspace}
                             onChange={(e) => setSelectedWorkspace(e.target.value)}
                             required
@@ -56,11 +56,11 @@ export const SchedulesView: React.FC = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="w-48 space-y-2">
-                        <label className="text-[11px] font-bold text-[var(--text-secondary)] uppercase tracking-wider">Time (Daily)</label>
+                    <div>
+                        <label className="block text-sm font-medium text-[#0F172A] mb-1.5">Time (Daily)</label>
                         <input
                             type="time"
-                            className="w-full h-10 px-3 bg-[var(--bg-app)] border border-[var(--border-main)] rounded-[12px] text-sm text-[var(--text-primary)] focus-ring-minimal"
+                            className="bg-[#F8FAFC] border border-[#E5E7EB] text-[#0F172A] text-sm rounded-[12px] p-2 focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
                             value={time}
                             onChange={(e) => setTime(e.target.value)}
                             required
@@ -70,7 +70,7 @@ export const SchedulesView: React.FC = () => {
                         <Plus className="w-4 h-4 mr-2" /> Add Schedule
                     </Button>
                 </form>
-            </Card>
+            </Card> 
 
             <div className="space-y-3">
                 {alarms.length === 0 ? (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, Plus, GripVertical, Trash2, ArrowLeft, Pin, Settings2, Globe } from 'lucide-react';
+import { Save, Plus, GripVertical, Trash2, Pin, Settings2, Globe } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/forms/Input';
