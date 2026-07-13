@@ -16,10 +16,10 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
     const { settings } = useSettingsStore();
 
     const [searchQuery, setSearchQuery] = useState('');
-
+ 
     const filteredWorkspaces = workspaces.filter(ws =>
         ws.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        ws.description.toLowerCase().includes(searchQuery.toLowerCase())
+        (ws.description || '').toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const handleCreateNew = () => {
@@ -30,10 +30,9 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
             emoji: '🚀',
             websites: [],
             isFavorite: false,
-            isHidden: false,
+            isHidden: false, 
         });
     };
-
     const handleLaunch = async (workspaceId: string) => {
         const workspace = workspaces.find(w => w.id === workspaceId);
         if (workspace) {

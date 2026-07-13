@@ -1,6 +1,7 @@
-export type DuplicateStrategy = 'focus_existing' | 'open_new' | 'ignore';
-export type ThemePreference = 'system' | 'light' | 'dark';
-export type OpenMode = 'current_window' | 'new_window';
+// src/types/index.ts में इन्हें अपडेट करें:
+export type DuplicateStrategy = 'focus_existing' | 'open_new' | 'ignore';  
+export type OpenMode = 'current_window' | 'new_window' | 'new_tab';
+export type ThemePreference = 'system' | 'light' | 'dark'; 
 
 export interface Website {
     id: string;
@@ -21,7 +22,7 @@ export interface Website {
 export interface Workspace {
     id: string;
     name: string;
-    description: string;
+    description?: string;
     color: string;
     emoji: string;
     websites: Website[];
@@ -48,3 +49,4 @@ export interface AnalyticsRecord {
     workspaceLaunches: Record<string, number>; // workspaceId -> count
     totalLaunchTimeMs: number;
 }
+export type CreateWebsiteDTO = Omit<Website, 'id' | 'order'>;

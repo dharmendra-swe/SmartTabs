@@ -12,10 +12,12 @@ import { SettingsView } from './views/SettingsView';
 import { AnalyticsView } from './views/AnalyticsView';
 import { SchedulesView } from './views/SchedulesView';
 import { WorkspaceEditor } from './views/WorkspaceEditor';
+import { useTheme } from '@/hooks/useTheme';
 
 type ViewType = 'dashboard' | 'workspaces' | 'schedules' | 'analytics' | 'settings';
 
 export const DashboardLayout: React.FC = () => {
+    useTheme(); 
     const [activeView, setActiveView] = useState<ViewType>('dashboard');
     const [activeWorkspaceId, setActiveWorkspaceId] = useState<string | null>(null);
     const [isHydrated, setIsHydrated] = useState(false);
@@ -108,7 +110,7 @@ export const DashboardLayout: React.FC = () => {
 
             {/* Main Content Area */}
             <main className="flex-1 overflow-y-auto">
-                <div className="max-w-5xl mx-auto p-8"> 
+                <div className="max-w-5xl mx-auto p-8">
                     {activeView === 'dashboard' && <Overview onNavigate={setActiveView} />}
                     {activeView === 'workspaces' && !activeWorkspaceId && (
                         <WorkspacesManager onEdit={(id) => setActiveWorkspaceId(id)} />
@@ -118,7 +120,7 @@ export const DashboardLayout: React.FC = () => {
                     )}
                     {activeView === 'schedules' && <SchedulesView />}
                     {activeView === 'analytics' && <AnalyticsView />}
-                    {activeView === 'settings' && <SettingsView />} 
+                    {activeView === 'settings' && <SettingsView />}
                 </div>
             </main>
         </div>

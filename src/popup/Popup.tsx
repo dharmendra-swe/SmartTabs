@@ -1,36 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Search, Settings, Rocket, ExternalLink, Command } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
-import { StorageService } from '@/services/storage';
 import { WorkspaceEngine } from '@/services/workspaceEngine';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import '@/globals.css';  
+import { useTheme } from '@/hooks/useTheme';
 
 export const Popup: React.FC = () => {
-    const { workspaces, setWorkspaces } = useWorkspaceStore();
-    const { settings, hydrateSettings } = useSettingsStore();
+    useTheme(); // Custom hook to apply theme based on settings
+    // These now automatically sync with chrome.storage instantly
+    const { workspaces } = useWorkspaceStore();
+    const { settings } = useSettingsStore();
+
     const [searchQuery, setSearchQuery] = useState('');
     const [isLaunching, setIsLaunching] = useState<string | null>(null);
-
-    // Hydrate state from Chrome Storage immediately on open
-    useEffect(() => {
-        const loadState = async () => {
-            const stateStr = await StorageService.get<string>('workspace-storage', '{}');
-            const settingsStr = await StorageService.get<string>('settings-storage', '{}');
-
-            const parsedState = JSON.parse(stateStr);
-            const parsedSettings = JSON.parse(settingsStr);
-
-            if (parsedState?.state?.workspaces) {
-                setWorkspaces(parsedState.state.workspaces);
-            }
-            if (parsedSettings?.state?.settings) {
-                hydrateSettings(parsedSettings.state.settings);
-            }
-        };
-        loadState();
-    }, [setWorkspaces, hydrateSettings]);
 
     const handleLaunch = async (workspaceId: string) => {
         const workspace = workspaces.find(w => w.id === workspaceId);
@@ -43,8 +28,10 @@ export const Popup: React.FC = () => {
     };
 
     const openOptions = () => {
-        if (chrome.runtime && chrome.runtime.openOptionsPage) {
+        if (chrome?.runtime?.openOptionsPage) {
             chrome.runtime.openOptionsPage();
+        } else {
+            window.open(chrome.runtime.getURL('options.html'));
         }
     };
 
@@ -53,39 +40,39 @@ export const Popup: React.FC = () => {
     );
 
     return (
-        <div className="flex flex-col h-full bg-[#F8FAFC]">
+        <div className="flex flex-col h-full bg-[var(--bg-app)]">
             {/* Header */}
-            <div className="px-4 py-4 bg-white border-b border-[#E5E7EB] flex items-center justify-between sticky top-0 z-10">
+            <div className="px-4 py-4 bg-[var(--bg-card)] border-b border-[var(--border-main)] flex items-center justify-between sticky top-0 z-10">
                 <div>
-                    <h1 className="text-base font-semibold text-[#0F172A]">Good Morning 👋</h1>
-                    <p className="text-xs text-gray-500">Ready to start today?</p>
+                    <h1 className="text-base font-semibold text-[var(--text-primary)]">Good Morning 👋</h1>
+                    <p className="text-xs text-[var(--text-secondary)]">Ready to start today?</p>
                 </div>
                 <Button variant="ghost" size="icon" onClick={openOptions} title="Open Settings">
-                    <Settings className="w-5 h-5 text-gray-500" />
+                    <Settings className="w-5 h-5 text-[var(--text-secondary)]" />
                 </Button>
             </div>
 
             {/* Search */}
             <div className="p-4">
                 <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
                     <input
                         type="text"
-                        placeholder="Search workspaces..."
+                        placeholder="Search Workspaces..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full h-10 pl-9 pr-4 bg-white border border-[#E5E7EB] rounded-[14px] text-sm focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all"
+                        className="w-full h-10 pl-9 pr-4 bg-[var(--bg-card)] border border-[var(--border-main)] rounded-[14px] text-sm text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all"
                         autoFocus
                     />
-                </div>
+                </div> 
             </div>
 
             {/* Workspace List */}
-            <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3">
+            <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3 hide-scrollbar">
                 {filteredWorkspaces.length === 0 ? (
                     <div className="text-center py-8">
-                        <Rocket className="w-8 h-8 text-gray-300 mx-auto mb-3" />
-                        <p className="text-sm text-gray-500">No workspaces found.</p>
+                        <Rocket className="w-8 h-8 text-[var(--border-main)] mx-auto mb-3" />
+                        <p className="text-sm text-[var(--text-secondary)]">No workspaces found.</p>
                         {workspaces.length === 0 && (
                             <Button variant="primary" size="sm" className="mt-4" onClick={openOptions}>
                                 Create Your First Workspace
@@ -96,8 +83,7 @@ export const Popup: React.FC = () => {
                     filteredWorkspaces.map(workspace => (
                         <Card
                             key={workspace.id}
-                            hoverable
-                            className="p-3 flex items-center justify-between group"
+                            className="p-3 flex items-center justify-between group cursor-pointer"
                         >
                             <div className="flex items-center space-x-3 overflow-hidden">
                                 <div
@@ -107,10 +93,10 @@ export const Popup: React.FC = () => {
                                     <span className="text-lg">{workspace.emoji}</span>
                                 </div>
                                 <div className="truncate">
-                                    <h3 className="text-sm font-medium text-[#0F172A] truncate">
+                                    <h3 className="text-sm font-medium text-[var(--text-primary)] truncate">
                                         {workspace.name}
                                     </h3>
-                                    <p className="text-xs text-gray-500 truncate">
+                                    <p className="text-xs text-[var(--text-secondary)] truncate">
                                         {workspace.websites.filter(w => w.enabled).length} tabs
                                     </p>
                                 </div>
@@ -130,9 +116,9 @@ export const Popup: React.FC = () => {
             </div>
 
             {/* Footer Hint */}
-            <div className="px-4 py-3 bg-white border-t border-[#E5E7EB] flex items-center justify-center space-x-2 text-xs text-gray-400">
+            <div className="px-4 py-3 bg-[var(--bg-card)] border-t border-[var(--border-main)] flex items-center justify-center space-x-2 text-xs text-[var(--text-muted)]">
                 <Command className="w-3 h-3" />
-                <span>Press Ctrl+Shift+D for quick launch</span>
+                <span>Developed by DkUnstoppable</span>
             </div>
         </div>
     );

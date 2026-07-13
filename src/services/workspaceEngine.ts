@@ -87,11 +87,10 @@ export class WorkspaceEngine {
                     continue;
                 }
 
-                // Open Execution
-                if (site.openMode === 'new_window') {
+                // Open the tab based on the specified open mode
+                if ((site.openMode as string) === 'new_window') {
                     await TabsService.createTabInNewWindow(targetUrl, site.pinned);
                 } else {
-                    // Open in current window
                     const isActive = i === 0;
                     await TabsService.createTab(targetUrl, site.pinned, isActive);
                 }
