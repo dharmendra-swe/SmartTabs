@@ -4,15 +4,13 @@ import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useAnalyticsStore } from '@/stores/analyticsStore';
 import { StorageService } from '@/services/storage';
-
-// Views (We will build these next)
 import { Overview } from './views/Overview';
 import { WorkspacesManager } from './views/WorkspacesManager';
 import { SettingsView } from './views/SettingsView';
 import { AnalyticsView } from './views/AnalyticsView';
 import { SchedulesView } from './views/SchedulesView';
 import { WorkspaceEditor } from './views/WorkspaceEditor';
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks/useTheme';  
 
 type ViewType = 'dashboard' | 'workspaces' | 'schedules' | 'analytics' | 'settings';
 
@@ -72,11 +70,9 @@ export const DashboardLayout: React.FC = () => {
         <div className="flex h-screen bg-[#F8FAFC]">
             {/* Sidebar Navigation */}
             <aside className="w-64 bg-white border-r border-[#E5E7EB] flex flex-col">
-                <div className="p-6">
-                    <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-[#2563EB] rounded-[10px] flex items-center justify-center">
-                            <FolderKanban className="w-4 h-4 text-white" />
-                        </div>
+                <div className="px-6 py-3 border-b border-[#E5E7EB] mb-4">
+                    <div className="flex items-center gap-1">
+                        <img src={"/icons/logo.png" } alt="SmartTabs Logo" className="w-7 h-7" />
                         <span className="font-semibold text-[#0F172A] text-lg tracking-tight">SmartTabs</span>
                     </div>
                 </div>
