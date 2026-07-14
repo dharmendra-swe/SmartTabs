@@ -43,34 +43,36 @@ export const SchedulesView: React.FC = () => {
             <Card className="p-6 bg-[var(--bg-card)] border-[var(--border-main)] mb-8 shadow-sm">
                 <form onSubmit={handleCreateSchedule} className="flex items-end gap-4">
                     <div className="flex-1">
-                        <label className="block text-sm font-medium text-[#0F172A] mb-1.5">Workspace</label>
+                        <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">Workspace</label>
                         <select
-                            className="w-full bg-[#F8FAFC] border border-[#E5E7EB] text-[#0F172A] text-sm rounded-[12px] p-2.5 focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
+                            className="w-full bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[12px] p-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] transition-all outline-none"
                             value={selectedWorkspace}
                             onChange={(e) => setSelectedWorkspace(e.target.value)}
                             required
                         >
-                            <option value="" disabled>Select Workspace...</option>
+                            <option value="" disabled className="bg-[var(--bg-card)] text-[var(--text-muted)]">Select Workspace...</option>
                             {workspaces.map(ws => (
-                                <option key={ws.id} value={ws.id}>{ws.emoji} {ws.name}</option>
+                                <option key={ws.id} value={ws.id} className="bg-[var(--bg-card)] text-[var(--text-primary)]">
+                                    {ws.emoji} {ws.name}
+                                </option>
                             ))}
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-[#0F172A] mb-1.5">Time (Daily)</label>
+                        <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">Time (Daily)</label>
                         <input
                             type="time"
-                            className="bg-[#F8FAFC] border border-[#E5E7EB] text-[#0F172A] text-sm rounded-[12px] p-2 focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
+                            className="bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[12px] p-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] transition-all outline-none"
                             value={time}
                             onChange={(e) => setTime(e.target.value)}
                             required
                         />
                     </div>
-                    <Button type="submit" variant="primary" className="h-10 px-6">
+                    <Button type="submit" variant="primary" className="h-10 px-6 rounded-[12px]">
                         <Plus className="w-4 h-4 mr-2" /> Add Schedule
                     </Button>
                 </form>
-            </Card> 
+            </Card>
 
             <div className="space-y-3">
                 {alarms.length === 0 ? (
@@ -87,7 +89,7 @@ export const SchedulesView: React.FC = () => {
                         if (!workspace) return null;
 
                         return (
-                            <Card key={alarm.name} className="p-4 flex items-center justify-between bg-[var(--bg-card)] border-[var(--border-main)] group">
+                            <Card key={alarm.name} className="p-4 flex items-center justify-between bg-[var(--bg-card)] border-[var(--border-main)] group hover:border-[var(--text-muted)] transition-colors">
                                 <div className="flex items-center space-x-4">
                                     <div className="w-10 h-10 rounded-[12px] bg-[var(--bg-hover)] flex items-center justify-center text-lg">
                                         <Clock className="w-5 h-5 text-[var(--border-focus)]" />
@@ -101,7 +103,7 @@ export const SchedulesView: React.FC = () => {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleDelete(wsId)}
-                                    className="opacity-0 group-hover:opacity-100 text-[var(--brand-danger)] hover:bg-[var(--bg-app)]"
+                                    className="opacity-0 group-hover:opacity-100 text-[var(--brand-danger)] hover:bg-[var(--bg-hover)] transition-all"
                                 >
                                     <Trash2 className="w-4 h-4" />
                                 </Button>

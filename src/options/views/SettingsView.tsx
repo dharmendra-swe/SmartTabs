@@ -71,31 +71,31 @@ export const SettingsView: React.FC = () => {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-3xl">
             <div>
-                <h1 className="text-2xl font-bold text-[#0F172A] mb-1">Settings</h1>
-                <p className="text-[#64748B]">Configure your SmartTabs experience.</p>
+                <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-1">Settings</h1>
+                <p className="text-[var(--text-secondary)]">Configure your SmartTabs experience.</p>
             </div>
 
             {logStatus && (
-                <div className={`p-4 rounded-[14px] text-sm font-medium ${logStatus.error ? 'bg-[#FEF2F2] text-[#EF4444]' : 'bg-[#F0FDF4] text-[#22C55E]'}`}>
+                <div className={`p-4 rounded-[14px] text-sm font-medium ${logStatus.error ? 'bg-[var(--bg-app)] text-[var(--color-brand-danger)] border border-[var(--color-brand-danger)]' : 'bg-[var(--bg-app)] text-[var(--color-brand-success)] border border-[var(--color-brand-success)]'}`}>
                     {logStatus.text}
                 </div>
             )}
 
             <div className="space-y-6">
-                {/* Core Settings Sections (Theme, Delay, Notifications, etc.) */}
+                {/* Appearance Section */}
                 <Card className="overflow-visible">
-                    <div className="p-5 border-b border-[#E5E7EB] flex items-center gap-3">
-                        <Monitor className="w-5 h-5 text-[#2563EB]" />
-                        <h2 className="text-lg font-semibold text-[#0F172A]">Appearance</h2>
+                    <div className="p-5 border-b border-[var(--border-main)] flex items-center gap-3">
+                        <Monitor className="w-5 h-5 text-[var(--color-brand-primary)]" />
+                        <h2 className="text-lg font-semibold text-[var(--text-primary)]">Appearance</h2>
                     </div>
                     <div className="p-5 space-y-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="font-medium text-[#0F172A]">Theme</p>
-                                <p className="text-sm text-[#64748B]">Select your preferred interface theme.</p>
+                                <p className="font-medium text-[var(--text-primary)]">Theme</p>
+                                <p className="text-sm text-[var(--text-secondary)]">Select your preferred interface theme.</p>
                             </div>
                             <select
-                                className="bg-[#F8FAFC] border border-[#E5E7EB] text-[#0F172A] text-sm rounded-[10px] focus:ring-[#2563EB] focus:border-[#2563EB] block p-2.5"
+                                className="bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
                                 value={settings.theme}
                                 onChange={(e) => setTheme(e.target.value as ThemePreference)}
                             >
@@ -107,8 +107,8 @@ export const SettingsView: React.FC = () => {
 
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="font-medium text-[#0F172A]">Interface Animations</p>
-                                <p className="text-sm text-[#64748B]">Enable smooth transitions and hover effects.</p>
+                                <p className="font-medium text-[var(--text-primary)]">Interface Animations</p>
+                                <p className="text-sm text-[var(--text-secondary)]">Enable smooth transitions and hover effects.</p>
                             </div>
                             <Switch
                                 checked={settings.animationsEnabled}
@@ -118,22 +118,23 @@ export const SettingsView: React.FC = () => {
                     </div>
                 </Card>
 
+                {/* Launch Engine Section */}
                 <Card className="overflow-visible">
-                    <div className="p-5 border-b border-[#E5E7EB] flex items-center gap-3">
-                        <Zap className="w-5 h-5 text-[#2563EB]" />
-                        <h2 className="text-lg font-semibold text-[#0F172A]">Launch Engine</h2>
+                    <div className="p-5 border-b border-[var(--border-main)] flex items-center gap-3">
+                        <Zap className="w-5 h-5 text-[var(--color-brand-primary)]" />
+                        <h2 className="text-lg font-semibold text-[var(--text-primary)]">Launch Engine</h2>
                     </div>
                     <div className="p-5 space-y-6">
                         <div className="flex items-center justify-between">
                             <div className="pr-8">
-                                <p className="font-medium text-[#0F172A]">Global Launch Delay (ms)</p>
-                                <p className="text-sm text-[#64748B]">Time between opening each tab. Prevents browser freezing on large workspaces.</p>
+                                <p className="font-medium text-[var(--text-primary)]">Global Launch Delay (ms)</p>
+                                <p className="text-sm text-[var(--text-secondary)]">Time between opening each tab. Prevents browser freezing on large workspaces.</p>
                             </div>
                             <input
                                 type="number"
                                 min="0"
                                 step="50"
-                                className="w-24 bg-[#F8FAFC] border border-[#E5E7EB] text-[#0F172A] text-sm rounded-[10px] focus:ring-[#2563EB] focus:border-[#2563EB] block p-2.5"
+                                className="w-24 bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
                                 value={settings.globalDelay}
                                 onChange={(e) => setGlobalDelay(parseInt(e.target.value) || 0)}
                             />
@@ -141,11 +142,11 @@ export const SettingsView: React.FC = () => {
 
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="font-medium text-[#0F172A]">Duplicate Strategy</p>
-                                <p className="text-sm text-[#64748B]">How to handle websites that are already open.</p>
+                                <p className="font-medium text-[var(--text-primary)]">Duplicate Strategy</p>
+                                <p className="text-sm text-[var(--text-secondary)]">How to handle websites that are already open.</p>
                             </div>
                             <select
-                                className="bg-[#F8FAFC] border border-[#E5E7EB] text-[#0F172A] text-sm rounded-[10px] focus:ring-[#2563EB] focus:border-[#2563EB] block p-2.5"
+                                className="bg-[var(--bg-app)] border border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
                                 value={settings.defaultDuplicateStrategy}
                                 onChange={(e) => updateSettings({ defaultDuplicateStrategy: e.target.value as DuplicateStrategy })}
                             >
@@ -157,14 +158,14 @@ export const SettingsView: React.FC = () => {
                     </div>
                 </Card>
 
-                {/* Data Architecture Backup & Portability Division */}
+                {/* Backup & Portability Section */}
                 <Card className="overflow-visible">
-                    <div className="p-5 border-b border-[#E5E7EB] flex items-center gap-3">
-                        <RefreshCw className="w-5 h-5 text-[#2563EB]" />
-                        <h2 className="text-lg font-semibold text-[#0F172A]">Backup & Portability</h2>
+                    <div className="p-5 border-b border-[var(--border-main)] flex items-center gap-3">
+                        <RefreshCw className="w-5 h-5 text-[var(--color-brand-primary)]" />
+                        <h2 className="text-lg font-semibold text-[var(--text-primary)]">Backup & Portability</h2>
                     </div>
                     <div className="p-5 space-y-4">
-                        <p className="text-sm text-[#64748B]">
+                        <p className="text-sm text-[var(--text-secondary)]">
                             Migrate your custom workflows cleanly across client extension environments via data payload structural exports.
                         </p>
                         <div className="flex flex-wrap gap-3">
@@ -185,16 +186,16 @@ export const SettingsView: React.FC = () => {
                     </div>
                 </Card>
 
-                {/* Emergency Systems Maintenance Partition */}
-                <Card className="border-[#EF4444] border bg-[#FFF5F5]">
-                    <div className="p-5 border-b border-[#FCA5A5] flex items-center gap-3">
-                        <ShieldAlert className="w-5 h-5 text-[#EF4444]" />
-                        <h2 className="text-lg font-semibold text-[#EF4444]">Danger Zone</h2>
+                {/* Danger Zone Section */}
+                <Card className="border-[var(--color-brand-danger)] border bg-[var(--bg-card)]">
+                    <div className="p-5 border-b border-[var(--color-brand-danger)]/30 flex items-center gap-3 bg-[var(--color-brand-danger)]/5">
+                        <ShieldAlert className="w-5 h-5 text-[var(--color-brand-danger)]" />
+                        <h2 className="text-lg font-semibold text-[var(--var-brand-danger)] text-[var(--color-brand-danger)]">Danger Zone</h2>
                     </div>
                     <div className="p-5 flex items-center justify-between">
                         <div>
-                            <p className="font-semibold text-[#0F172A]">Wipe Application Node Cache</p>
-                            <p className="text-sm text-[#64748B]">Resets the system parameters and completely clears the local store schema layout state.</p>
+                            <p className="font-semibold text-[var(--text-primary)]">Wipe Application Node Cache</p>
+                            <p className="text-sm text-[var(--text-secondary)]">Resets the system parameters and completely clears the local store schema layout state.</p>
                         </div>
                         <Button variant="danger" onClick={handleResetStorage}>
                             Purge Sync

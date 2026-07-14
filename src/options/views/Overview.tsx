@@ -31,8 +31,8 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
             {/* Header */}
             <div className="flex items-end justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-[#0F172A] mb-1">Good Morning 👋</h1>
-                    <p className="text-[#64748B]">Here is your workspace overview for today.</p>
+                    <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-1">Good Morning 👋</h1>
+                    <p className="text-[var(--text-secondary)]">Here is your workspace overview for today.</p>
                 </div>
                 <Button
                     variant="primary"
@@ -46,52 +46,52 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
             {/* Stats Row */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card className="p-5 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-[#E0E7FF] text-[#4F46E5] rounded-[14px] flex items-center justify-center">
+                    <div className="w-12 h-12 bg-[var(--bg-app)] text-[var(--color-brand-accent)] rounded-[14px] flex items-center justify-center border border-[var(--border-subtle)]">
                         <FolderKanban className="w-5 h-5" />
                     </div>
                     <div>
-                        <p className="text-2xl font-bold text-[#0F172A]">{workspaces.length}</p>
-                        <p className="text-sm text-[#64748B]">Active Workspaces</p>
+                        <p className="text-2xl font-bold text-[var(--text-primary)]">{workspaces.length}</p>
+                        <p className="text-sm text-[var(--text-secondary)]">Active Workspaces</p>
                     </div>
                 </Card>
 
                 <Card className="p-5 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-[#DCFCE7] text-[#16A34A] rounded-[14px] flex items-center justify-center">
+                    <div className="w-12 h-12 bg-[var(--bg-app)] text-[var(--color-brand-success)] rounded-[14px] flex items-center justify-center border border-[var(--border-subtle)]">
                         <Activity className="w-5 h-5" />
                     </div>
                     <div>
-                        <p className="text-2xl font-bold text-[#0F172A]">{totalWebsites}</p>
-                        <p className="text-sm text-[#64748B]">Saved Websites</p>
+                        <p className="text-2xl font-bold text-[var(--text-primary)]">{totalWebsites}</p>
+                        <p className="text-sm text-[var(--text-secondary)]">Saved Websites</p>
                     </div>
                 </Card>
 
                 <Card className="p-5 flex items-center justify-between hoverable cursor-pointer group" onClick={() => onNavigate('analytics')}>
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-[#F1F5F9] text-[#475569] rounded-[14px] flex items-center justify-center">
+                        <div className="w-12 h-12 bg-[var(--bg-app)] text-[var(--text-secondary)] rounded-[14px] flex items-center justify-center border border-[var(--border-subtle)]">
                             <BarChart3 className="w-5 h-5" />
                         </div>
                         <div>
-                            <p className="text-sm font-medium text-[#0F172A]">View detailed</p>
-                            <p className="text-sm text-[#64748B]">Launch statistics</p>
+                            <p className="text-sm font-medium text-[var(--text-primary)]">View detailed</p>
+                            <p className="text-sm text-[var(--text-secondary)]">Launch statistics</p>
                         </div>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-[#94A3B8] group-hover:text-[#0F172A] transition-colors" />
+                    <ArrowRight className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors" />
                 </Card>
             </div>
 
-            {/* Favorites Section (if present) */}
+            {/* Favorites Section */}
             {favoriteWorkspaces.length > 0 && (
                 <div>
                     <div className="flex items-center gap-2 mb-4">
-                        <Star className="w-4 h-4 text-[#EAB308] fill-current" />
-                        <h2 className="text-lg font-semibold text-[#0F172A]">Favorites</h2>
+                        <Star className="w-4 h-4 text-[var(--color-brand-warning)] fill-current" />
+                        <h2 className="text-lg font-semibold text-[var(--text-primary)]">Favorites</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         {favoriteWorkspaces.map((workspace) => (
                             <Card key={`fav-${workspace.id}`} hoverable className="p-4 group flex flex-col h-full">
                                 <div className="flex items-start justify-between mb-4">
                                     <div
-                                        className="w-10 h-10 rounded-[12px] flex items-center justify-center"
+                                        className="w-10 h-10 rounded-[12px] flex items-center justify-center font-sans"
                                         style={{ backgroundColor: `${workspace.color}15`, color: workspace.color }}
                                     >
                                         <span className="text-lg">{workspace.emoji}</span>
@@ -99,15 +99,15 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-[#F1F5F9]"
+                                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--bg-hover)]"
                                         onClick={() => handleLaunch(workspace.id)}
                                     >
-                                        <Play className="w-4 h-4 text-[#2563EB]" />
+                                        <Play className="w-4 h-4 text-[var(--color-brand-primary)] fill-current" />
                                     </Button>
                                 </div>
                                 <div className="mt-auto">
-                                    <h3 className="font-semibold text-[#0F172A] truncate mb-1">{workspace.name}</h3>
-                                    <p className="text-xs text-[#64748B]">{workspace.websites.filter(w => w.enabled).length} websites</p>
+                                    <h3 className="font-semibold text-[var(--text-primary)] truncate mb-1">{workspace.name}</h3>
+                                    <p className="text-xs text-[var(--text-secondary)]">{workspace.websites.filter(w => w.enabled).length} websites</p>
                                 </div>
                             </Card>
                         ))}
@@ -117,11 +117,11 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
 
             {/* Quick Launch (Recent) */}
             <div>
-                <h2 className="text-lg font-semibold text-[#0F172A] mb-4">Recent Workspaces</h2>
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Recent Workspaces</h2>
                 {workspaces.length === 0 ? (
-                    <Card className="p-12 text-center border-dashed border-2 bg-transparent">
-                        <h3 className="text-lg font-medium text-[#0F172A] mb-2">No workspaces yet</h3>
-                        <p className="text-[#64748B] mb-6">Create your first workspace to start organizing your workflow.</p>
+                    <Card className="p-12 text-center border-dashed border-2 border-[var(--border-main)] bg-transparent">
+                        <h3 className="text-lg font-medium text-[var(--text-primary)] mb-2">No workspaces yet</h3>
+                        <p className="text-[var(--text-secondary)] mb-6">Create your first workspace to start organizing your workflow.</p>
                         <Button onClick={() => onNavigate('workspaces')}>Create Workspace</Button>
                     </Card>
                 ) : (
@@ -130,7 +130,7 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
                             <Card key={workspace.id} hoverable className="p-4 group flex flex-col h-full">
                                 <div className="flex items-start justify-between mb-4">
                                     <div
-                                        className="w-10 h-10 rounded-[12px] flex items-center justify-center"
+                                        className="w-10 h-10 rounded-[12px] flex items-center justify-center font-sans"
                                         style={{ backgroundColor: `${workspace.color}15`, color: workspace.color }}
                                     >
                                         <span className="text-lg">{workspace.emoji}</span>
@@ -138,15 +138,15 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-[#F1F5F9]"
+                                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--bg-hover)]"
                                         onClick={() => handleLaunch(workspace.id)}
                                     >
-                                        <Play className="w-4 h-4 text-[#2563EB]" />
+                                        <Play className="w-4 h-4 text-[var(--color-brand-primary)] fill-current" />
                                     </Button>
                                 </div>
                                 <div className="mt-auto">
-                                    <h3 className="font-semibold text-[#0F172A] truncate mb-1">{workspace.name}</h3>
-                                    <p className="text-xs text-[#64748B]">{workspace.websites.filter(w => w.enabled).length} websites</p>
+                                    <h3 className="font-semibold text-[var(--text-primary)] truncate mb-1">{workspace.name}</h3>
+                                    <p className="text-xs text-[var(--text-secondary)]">{workspace.websites.filter(w => w.enabled).length} websites</p>
                                 </div>
                             </Card>
                         ))}

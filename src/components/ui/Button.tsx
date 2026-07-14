@@ -3,14 +3,13 @@ import { motion, HTMLMotionProps } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
-// Omitting children from HTMLMotionProps to resolve the Framer Motion type collision
 interface ButtonProps extends Omit<HTMLMotionProps<"button">, "ref" | "children"> {
     variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
     size?: 'sm' | 'md' | 'lg' | 'icon';
     isLoading?: boolean;
     leftIcon?: React.ReactNode;
     rightIcon?: React.ReactNode;
-    children?: React.ReactNode; // Explicitly enforce standard React elements
+    children?: React.ReactNode;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -31,10 +30,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         const baseStyles = "inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
 
         const variants = {
-            primary: "bg-[#2563EB] text-white hover:bg-[#1D4ED8] focus-visible:ring-[#2563EB]",
-            secondary: "bg-[#F8FAFC] text-[#0F172A] border border-[#E5E7EB] hover:bg-[#F1F5F9] focus-visible:ring-[#4F46E5]",
-            ghost: "text-[#0F172A] hover:bg-[#F1F5F9] focus-visible:ring-[#2563EB]",
-            danger: "bg-[#EF4444] text-white hover:bg-[#DC2626] focus-visible:ring-[#EF4444]",
+            primary: "bg-[var(--color-brand-primary)] text-white hover:opacity-90 focus-visible:ring-[var(--color-brand-primary)]",
+            secondary: "bg-[var(--bg-card)] text-[var(--text-primary)] border border-[var(--border-main)] hover:bg-[var(--bg-hover)] focus-visible:ring-[var(--color-brand-accent)]",
+            ghost: "text-[var(--text-primary)] hover:bg-[var(--bg-hover)] focus-visible:ring-[var(--color-brand-primary)]",
+            danger: "bg-[var(--color-brand-danger)] text-white hover:opacity-90 focus-visible:ring-[var(--color-brand-danger)]",
         };
 
         const sizes = {
@@ -51,8 +50,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 whileTap={{ scale: disabled || isLoading ? 1 : 0.98 }}
                 className={cn(baseStyles, variants[variant], sizes[size], className)}
                 disabled={disabled || isLoading}
-                {...props}
-            >
+                {...props}>
                 {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
                 {!isLoading && leftIcon && <span className="mr-2">{leftIcon}</span>}
                 {children}

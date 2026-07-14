@@ -57,47 +57,52 @@ export const DashboardLayout: React.FC = () => {
 
     if (!isHydrated) {
         return (
-            <div className="flex items-center justify-center h-screen bg-[#F8FAFC]">
+            <div className="flex items-center justify-center h-screen bg-[var(--bg-app)]">
                 <div className="animate-pulse flex flex-col items-center">
-                    <div className="w-12 h-12 bg-[#2563EB] rounded-[14px] mb-4 opacity-50"></div>
-                    <div className="text-[#0F172A] font-medium text-sm">Initializing SmartTabs OS...</div>
+                    <div className="w-12 h-12 bg-[var(--color-brand-primary)] rounded-[14px] mb-4 opacity-50"></div>
+                    <div className="text-[var(--text-primary)] font-medium text-sm">Initializing SmartTabs OS...</div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="flex h-screen bg-[#F8FAFC]">
+        <div className="flex h-screen bg-[var(--bg-app)] text-[var(--text-primary)] transition-colors duration-200">
             {/* Sidebar Navigation */}
-            <aside className="w-64 bg-white border-r border-[#E5E7EB] flex flex-col">
-                <div className="px-6 py-3 border-b border-[#E5E7EB] mb-4">
-                    <div className="flex items-center gap-1">
-                        <img src={"/icons/logo.png" } alt="SmartTabs Logo" className="w-7 h-7" />
-                        <span className="font-semibold text-[#0F172A] text-lg tracking-tight">SmartTabs</span>
+            <aside className="w-64 bg-[var(--bg-card)] border-r border-[var(--border-main)] flex flex-col transition-colors duration-200">
+                <div className="px-6 py-3 border-b border-[var(--border-main)] mb-4">
+                    <div className="flex items-center gap-2">
+                        <img src={"/icons/logo.png"} alt="SmartTabs Logo" className="w-7 h-7" />
+                        <span className="font-semibold text-[var(--text-primary)] text-lg tracking-tight">SmartTabs</span>
                     </div>
                 </div>
 
-                <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
+                <nav className="flex-1 px-4 space-y-1 overflow-y-auto hide-scrollbar">
                     {navItems.map((item) => (
                         <button
                             key={item.id}
-                            onClick={() => setActiveView(item.id)}
-                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-[12px] text-sm font-medium transition-all ${activeView === item.id
-                                ? 'bg-[#F1F5F9] text-[#2563EB]'
-                                : 'text-[#64748B] hover:bg-[#F8FAFC] hover:text-[#0F172A]'
-                                }`}
+                            onClick={() => {
+                                setActiveView(item.id);
+                                setActiveWorkspaceId(null); // Reset sub-views when navigating directly
+                            }}
+                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-[12px] text-sm font-medium transition-all ${
+                                activeView === item.id && !activeWorkspaceId
+                                ? 'bg-[var(--bg-hover)] text-[var(--color-brand-primary)]'
+                                : 'text-[var(--text-secondary)] hover:bg-[var(--bg-app)] hover:text-[var(--text-primary)]'
+                            }`}
                         >
-                            <item.icon className={`w-4 h-4 ${activeView === item.id ? 'text-[#2563EB]' : 'text-[#94A3B8]'}`} />
+                            <item.icon className={`w-4 h-4 ${activeView === item.id && !activeWorkspaceId ? 'text-[var(--color-brand-primary)]' : 'text-[var(--text-muted)]'}`} />
                             {item.label}
                         </button>
                     ))}
                 </nav>
 
-                <div className="p-4 border-t border-[#E5E7EB]">
-                    <div className="bg-[#F8FAFC] p-4 rounded-[14px] border border-[#E5E7EB]">
-                        <p className="text-xs font-medium text-[#0F172A] mb-1">SmartTabs Pro</p>
-                        <p className="text-[11px] text-[#64748B] mb-3">Cloud Sync & Team Spaces</p>
-                        <button className="w-full bg-white border border-[#E5E7EB] text-[#0F172A] text-xs font-medium py-1.5 rounded-[10px] hover:bg-[#F1F5F9] transition-colors">
+                {/* Footer Component Promo Frame */}
+                <div className="p-4 border-t border-[var(--border-main)]">
+                    <div className="bg-[var(--bg-app)] p-4 rounded-[14px] border border-[var(--border-main)]">
+                        <p className="text-xs font-medium text-[var(--text-primary)] mb-1">SmartTabs Pro</p>
+                        <p className="text-[11px] text-[var(--text-secondary)] mb-3">Cloud Sync & Team Spaces</p>
+                        <button className="w-full bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-primary)] text-xs font-medium py-1.5 rounded-[10px] hover:bg-[var(--bg-hover)] transition-colors cursor-default">
                             Coming 2026
                         </button>
                     </div>
@@ -105,7 +110,7 @@ export const DashboardLayout: React.FC = () => {
             </aside>
 
             {/* Main Content Area */}
-            <main className="flex-1 overflow-y-auto">
+            <main className="flex-1 overflow-y-auto bg-[var(--bg-app)] transition-colors duration-200">
                 <div className="max-w-5xl mx-auto p-8">
                     {activeView === 'dashboard' && <Overview onNavigate={setActiveView} />}
                     {activeView === 'workspaces' && !activeWorkspaceId && (

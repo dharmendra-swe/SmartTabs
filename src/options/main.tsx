@@ -9,8 +9,7 @@ const root = createRoot(container);
 
 if (typeof chrome !== 'undefined' && chrome.runtime?.onMessage) {
     chrome.runtime.onMessage.addListener((message) => {
-        if (message.type === 'STORAGE_MUTATED_BACKGROUND') {
-            // Forces the store to re-read what is physically inside chrome.storage right now
+        if (message.type === 'STORAGE_MUTATED_BACKGROUND') { 
             window.location.reload();
         }
     });

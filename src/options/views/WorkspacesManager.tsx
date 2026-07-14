@@ -33,6 +33,7 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
             isHidden: false, 
         });
     };
+    
     const handleLaunch = async (workspaceId: string) => {
         const workspace = workspaces.find(w => w.id === workspaceId);
         if (workspace) {

@@ -1,27 +1,52 @@
+import { WorkspaceEngine } from '@/services/workspaceEngine';
 import { setupAlarmListeners } from './alarms';
 import { initializeCommands } from './commands';
 import { initializeStartup } from './startup';
 
 console.log('[SmartTabs] Service Worker Initializing...');
-// Initialize Event Listeners
 setupAlarmListeners();
 initializeCommands();
 initializeStartup();
-
-chrome.runtime.onInstalled.addListener((details) => {
-    if (details.reason === 'install') {
-        chrome.runtime.openOptionsPage();
-    }
-});
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message.type === 'PING') {
         sendResponse({ status: 'ALIVE', version: chrome.runtime.getManifest().version });
     }
-    return true;
-});
 
-chrome.runtime.onInstalled.addListener(() => {
+    if (message.type === 'LAUNCH_WORKSPACE_ASYNC') {
+        (async () => {
+            try {
+                const stateStr = await chrome.storage.local.get('workspace-storage');
+                const settingsStr = await chrome.storage.local.get('settings-storage');
+
+                const rawState = stateStr['workspace-storage'];
+                const rawSettings = settingsStr['settings-storage'];
+
+                const state = JSON.parse(typeof rawState === 'string' ? rawState : '{"state":{"workspaces":[]}}');
+                const settingsState = JSON.parse(typeof rawSettings === 'string' ? rawSettings : '{"state":{"settings":{}}}');
+
+                const workspaces = state?.state?.workspaces || [];
+                const settings = settingsState?.state?.settings;
+
+                const targetWorkspace = workspaces.find((ws: any) => ws.id === message.workspaceId);
+
+                if (targetWorkspace && settings) {
+                    await WorkspaceEngine.launchWorkspace(targetWorkspace, settings);
+                }
+            } catch (err) {
+                console.error('[SmartTabs Background Sync] Popup launch failed:', err);
+            }
+        })();
+    }
+
+    return true; // Keeps the messaging channel open for asynchronous responses
+});
+ 
+chrome.runtime.onInstalled.addListener((details) => { 
+    if (details.reason === 'install') {
+        chrome.runtime.openOptionsPage();
+    }
+ 
     chrome.contextMenus.removeAll(() => {
         chrome.contextMenus.create({
             id: "save-to-workspace",
@@ -31,13 +56,13 @@ chrome.runtime.onInstalled.addListener(() => {
     });
 });
 
+// --- 3. CONTEXT MENU ACTION HANDLER ---
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "save-to-workspace" && tab?.url) {
         try {
             const storageData = await chrome.storage.local.get('workspace-storage');
             const rawData = storageData['workspace-storage'];
 
-            // Safe fallback parsing keeping the internal store structure intact
             const parsedContainer = JSON.parse(typeof rawData === 'string' ? rawData : '{"state":{"workspaces":[]},"version":1}');
             const workspaces = parsedContainer?.state?.workspaces || [];
             const currentVersion = parsedContainer?.version ?? 1;
@@ -45,7 +70,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
             if (workspaces.length > 0) {
                 const targetWorkspace = workspaces[0];
 
-                // Construct a production-grade Website item mapping ALL strictly required fields
                 const newWebsiteItem = {
                     id: crypto.randomUUID(),
                     title: tab.title || "New Tab",
@@ -73,7 +97,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
                     return ws;
                 });
 
-                // Save back ensuring version framework is strictly preserved
                 await chrome.storage.local.set({
                     'workspace-storage': JSON.stringify({
                         state: { workspaces: updatedWorkspaces },
@@ -81,9 +104,8 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
                     })
                 });
 
-                // Notify cross-context windows (Options/Popup) to immediately re-sync reactive states
                 chrome.runtime.sendMessage({ type: 'STORAGE_MUTATED_BACKGROUND' }).catch(() => {
-                    // Fail-silent if no active UI ports are listening right now
+                    // Fail-silent when no UI context is listening
                 });
 
                 chrome.notifications.create({
