@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings, Rocket, Command } from 'lucide-react';
+import { Settings, Rocket, CodeXml } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { Button } from '@/components/ui/Button';
 import { SearchBar } from './SearchBar';
@@ -40,7 +40,7 @@ export const Popup: React.FC = () => {
     );
 
     return (
-        <div className="flex flex-col h-full bg-[var(--bg-app)] w-[360px] max-h-[580px]">
+        <div className="flex flex-col w-full h-full bg-[var(--bg-app)]  max-h-[400px]">
             {/* Header */}
             <div className="px-4 py-4 bg-[var(--bg-card)] border-b border-[var(--border-main)] flex items-center justify-between sticky top-0 z-10">
                 <div>
@@ -76,8 +76,8 @@ export const Popup: React.FC = () => {
 
             {/* Footer Handle */}
             <div className="px-4 py-3 bg-[var(--bg-card)] border-t border-[var(--border-main)] flex items-center justify-center space-x-2 text-xs text-[var(--text-muted)]">
-                <Command className="w-3 h-3" />
-                <span>Developed by @dkunstoppable</span>
+                <CodeXml className="w-3 h-3" />
+                <span>Developed by <a href="https://www.linkedin.com/in/dharmendra-swe/" target="_blank" rel="noopener noreferrer" className="text-[var(--text-primary)] hover:underline">Dharmendra</a></span>
             </div>
         </div>
     );

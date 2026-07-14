@@ -73,6 +73,10 @@
         -moz-osx-font-smoothing: grayscale;
         box-sizing: border-box;
     }
+
+    .extension-root {
+        @apply w-[300px] h-[380px];
+    }
 }
 
 @layer utilities {

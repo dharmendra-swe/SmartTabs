@@ -104,7 +104,7 @@ export const SettingsView: React.FC = () => {
                                     <option value="light">Light</option>
                                     <option value="dark">Dark</option>
                                     {/* Chevron Icon wrapper */}
-                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--text-muted)]">
+                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-[var(--text-muted)]">
                                         <ChevronDown size={18} />
                                     </div>
                                 </select>
@@ -153,7 +153,7 @@ export const SettingsView: React.FC = () => {
                             </div>
                             <div className="relative">
                                 <select
-                                    className="appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
+                                    className="min-w-[190px] w-full appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
                                     value={settings.defaultDuplicateStrategy}
                                     onChange={(e) => updateSettings({ defaultDuplicateStrategy: e.target.value as DuplicateStrategy })}
                                 >
@@ -162,7 +162,7 @@ export const SettingsView: React.FC = () => {
                                     <option value="ignore">Skip (Do Nothing)</option>
                                 </select>
                                 {/* Chevron Icon wrapper */}
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--text-muted)]">
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-[var(--text-muted)]">
                                     <ChevronDown size={18} />
                                 </div>
                             </div>
