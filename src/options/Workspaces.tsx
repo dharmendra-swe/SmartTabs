@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, MoreVertical, Play,  FolderPlus } from 'lucide-react';
+import { Plus, MoreVertical, MonitorUp,  FolderPlus } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { Card } from '@/components/ui/Card';
@@ -149,7 +149,7 @@ export const Workspaces: React.FC = () => {
                                     onClick={(e) => handleLaunch(workspace.id, e)}
                                     isLoading={isLaunching === workspace.id}
                                 >
-                                    <Play className="w-3.5 h-3.5 mr-2" />
+                                    <MonitorUp className="w-3.5 h-3.5 mr-2" />
                                     Launch
                                 </Button>
                             </div>

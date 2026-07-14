@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Plus, ArrowRight, Activity, BarChart3, FolderKanban, Star } from 'lucide-react';
+import { MonitorUp, Plus, ArrowRight, Activity, BarChart3, FolderKanban, Star } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { WorkspaceEngine } from '@/services/workspaceEngine';
@@ -102,7 +102,7 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
                                         className="opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--bg-hover)]"
                                         onClick={() => handleLaunch(workspace.id)}
                                     >
-                                        <Play className="w-4 h-4 text-[var(--color-brand-primary)] fill-current" />
+                                        <MonitorUp className="w-4 h-4 text-[var(--color-brand-primary)] fill-current" />
                                     </Button>
                                 </div>
                                 <div className="mt-auto">
@@ -141,7 +141,7 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
                                         className="opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--bg-hover)]"
                                         onClick={() => handleLaunch(workspace.id)}
                                     >
-                                        <Play className="w-4 h-4 text-[var(--color-brand-primary)] fill-current" />
+                                        <MonitorUp className="w-4 h-4 text-[var(--color-brand-primary)] fill-current" />
                                     </Button>
                                 </div>
                                 <div className="mt-auto">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Search, Trash2, Copy, Star, Edit2, Play } from 'lucide-react';
+import { Plus, Search, Trash2, Copy, Star, Edit2, MonitorUp } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { WorkspaceEngine } from '@/services/workspaceEngine';
@@ -107,7 +107,7 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
                                     <Trash2 className="w-4 h-4" />
                                 </Button>
                             </div>
-                            <Button variant="primary" size="sm" leftIcon={<Play className="w-3 h-3" />} onClick={() => handleLaunch(workspace.id)}>
+                            <Button variant="primary" size="sm" leftIcon={<MonitorUp className="w-3 h-3" />} onClick={() => handleLaunch(workspace.id)}>
                                 Launch
                             </Button>
                         </div>
