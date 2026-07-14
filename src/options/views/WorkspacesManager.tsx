@@ -65,7 +65,7 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {filteredWorkspaces.map(workspace => (
-                    <Card key={workspace.id} hoverable className="flex flex-col h-full group relative overflow-visible">
+                    <Card key={workspace.id} hoverable className="flex flex-col h-full group relative overflow-hidden">
                         <div className="p-5 flex-1">
                             <div className="flex justify-between items-start mb-4">
                                 <div

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Monitor, Zap, ShieldAlert, Download, Upload, RefreshCw } from 'lucide-react';
+import { Monitor, Zap, ShieldAlert, Download, Upload, RefreshCw, ChevronDown } from 'lucide-react';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { BackupService } from '@/services/backup';
@@ -94,15 +94,21 @@ export const SettingsView: React.FC = () => {
                                 <p className="font-medium text-[var(--text-primary)]">Theme</p>
                                 <p className="text-sm text-[var(--text-secondary)]">Select your preferred interface theme.</p>
                             </div>
-                            <select
-                                className="bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
-                                value={settings.theme}
-                                onChange={(e) => setTheme(e.target.value as ThemePreference)}
-                            >
-                                <option value="system">System Default</option>
-                                <option value="light">Light</option>
-                                <option value="dark">Dark</option>
-                            </select>
+                            <div className="relative">
+                                <select
+                                    className="appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
+                                    value={settings.theme}
+                                    onChange={(e) => setTheme(e.target.value as ThemePreference)}
+                                >
+                                    <option value="system">System Default</option>
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                    {/* Chevron Icon wrapper */}
+                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--text-muted)]">
+                                        <ChevronDown size={18} />
+                                    </div>
+                                </select>
+                            </div>
                         </div>
 
                         <div className="flex items-center justify-between">
@@ -145,15 +151,21 @@ export const SettingsView: React.FC = () => {
                                 <p className="font-medium text-[var(--text-primary)]">Duplicate Strategy</p>
                                 <p className="text-sm text-[var(--text-secondary)]">How to handle websites that are already open.</p>
                             </div>
-                            <select
-                                className="bg-[var(--bg-app)] border border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
-                                value={settings.defaultDuplicateStrategy}
-                                onChange={(e) => updateSettings({ defaultDuplicateStrategy: e.target.value as DuplicateStrategy })}
-                            >
-                                <option value="focus_existing">Focus Existing Tab</option>
-                                <option value="open_new">Always Open New Tab</option>
-                                <option value="ignore">Skip (Do Nothing)</option>
-                            </select>
+                            <div className="relative">
+                                <select
+                                    className="appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
+                                    value={settings.defaultDuplicateStrategy}
+                                    onChange={(e) => updateSettings({ defaultDuplicateStrategy: e.target.value as DuplicateStrategy })}
+                                >
+                                    <option value="focus_existing">Focus Existing Tab</option>
+                                    <option value="open_new">Always Open New Tab</option>
+                                    <option value="ignore">Skip (Do Nothing)</option>
+                                </select>
+                                {/* Chevron Icon wrapper */}
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--text-muted)]">
+                                    <ChevronDown size={18} />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </Card>

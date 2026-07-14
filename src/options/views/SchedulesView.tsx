@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Clock, Plus, Trash2, Calendar } from 'lucide-react';
+import { Clock, Plus, Trash2, Calendar, ChevronDown } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { SchedulerService } from '@/services/scheduler';
 import { Card } from '@/components/ui/Card';
@@ -44,19 +44,23 @@ export const SchedulesView: React.FC = () => {
                 <form onSubmit={handleCreateSchedule} className="flex items-end gap-4">
                     <div className="flex-1">
                         <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">Workspace</label>
-                        <select
-                            className="w-full bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[12px] p-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] transition-all outline-none"
-                            value={selectedWorkspace}
-                            onChange={(e) => setSelectedWorkspace(e.target.value)}
-                            required
-                        >
-                            <option value="" disabled className="bg-[var(--bg-card)] text-[var(--text-muted)]">Select Workspace...</option>
-                            {workspaces.map(ws => (
-                                <option key={ws.id} value={ws.id} className="bg-[var(--bg-card)] text-[var(--text-primary)]">
-                                    {ws.emoji} {ws.name}
-                                </option>
-                            ))}
-                        </select>
+                        <div className="relative">
+                            <select
+                                className="w-full appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[12px] p-2.5 pr-10 focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] transition-all outline-none" value={selectedWorkspace}
+                                onChange={(e) => setSelectedWorkspace(e.target.value)}
+                                required>
+                                <option value="" disabled className="bg-[var(--bg-card)] text-[var(--text-muted)]">Select Workspace...</option>
+                                {workspaces.map(ws => (
+                                    <option key={ws.id} value={ws.id} className="bg-[var(--bg-card)] text-[var(--text-primary)]">
+                                        {ws.emoji} {ws.name}
+                                    </option>
+                                ))}
+                                {/* Chevron Icon wrapper */}
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--text-muted)]">
+                                    <ChevronDown size={18} />
+                                </div>
+                            </select>
+                        </div>
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">Time (Daily)</label>
