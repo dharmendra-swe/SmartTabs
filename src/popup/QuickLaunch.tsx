@@ -1,5 +1,5 @@
 import React from 'react';
-import { MonitorUp, Loader2 } from 'lucide-react';
+import { Rocket, Loader2 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Workspace } from '@/types';
@@ -44,7 +44,7 @@ export const QuickLaunch: React.FC<QuickLaunchProps> = ({ workspaces, isLaunchin
                         {isLaunching === workspace.id ? (
                             <Loader2 className="w-4 h-4 animate-spin" />
                         ) : (
-                            <MonitorUp className="w-4 h-4" />
+                            <Rocket className="w-4 h-4" />
                         )}
                     </Button>
                 </Card>
