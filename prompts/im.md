@@ -486,3 +486,76 @@ Never write "Coming Soon."
 
 Build a premium website worthy of an award-winning product.
 https://chrome.google.com/webstore/devconsole/bd20bf42-9f8d-409a-8130-019b6560af3d
+
+## Short Description
+
+Launch your favorite websites instantly with organized workspaces. Create, manage, and open browser workspaces with one click for a faster, more productive browsing experience.
+
+---
+
+# Full Description
+
+## SmartTabs – Open Smarter. Work Faster.
+
+SmartTabs is a modern browser workspace manager that helps you organize and launch your favorite websites with a single click. Instead of opening the same tabs every day, create reusable workspaces for different tasks and switch between them instantly.
+
+Whether you're a developer, designer, marketer, student, entrepreneur, or remote professional, SmartTabs keeps your browser organized, saves time, and improves your daily workflow.
+
+### Features
+
+• Create and manage unlimited workspaces
+
+• Add, edit, organize, and categorize websites
+
+• Launch an entire workspace with one click
+
+• Sequential tab opening for a smoother browsing experience
+
+• Smart duplicate detection to focus existing tabs instead of opening duplicates
+
+• Automatic tab pinning for important websites
+
+• Favorite and recent workspaces
+
+• Fast search across workspaces and websites
+
+• Custom launch delay for individual websites
+
+• Import and export workspaces using JSON
+
+• Workspace usage statistics and analytics
+
+• Clean, modern, and distraction-free interface
+
+• Lightweight and optimized for performance
+
+### Perfect For
+
+* Software Developers, Designers, Product Managers, Digital Marketers, Students, Startup Founders, Researchers, Remote Teams, Business Professionals, Power Users
+
+### Why SmartTabs?
+
+Opening the same websites every day is repetitive and inefficient. SmartTabs lets you organize your browser into reusable workspaces so everything you need is ready in seconds.
+
+Create dedicated workspaces for:
+
+• Development
+• AI Tools
+• Office
+• Marketing
+• Personal
+• Learning
+• Research
+• Finance
+
+Launch your complete workspace with a single click and start working immediately.
+
+### Privacy
+
+SmartTabs stores your workspace data locally in your browser. Your browsing activity is never tracked, collected, or shared. Your data remains under your control.
+
+### Designed for Productivity
+
+Inspired by modern productivity tools such as Arc Browser, Linear, Notion, and Raycast, SmartTabs delivers a fast, clean, and premium browser workspace experience.
+
+**Open Smarter. Work Faster.**
