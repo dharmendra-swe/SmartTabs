@@ -93,19 +93,19 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
                         <ArrowLeft className="w-5 h-5 text-[var(--text-secondary)]" />
                     </Button>
                     <div className="flex items-center space-x-3 flex-1">
-                        <span className="text-xl bg-[var(--bg-hover)] p-2 rounded-xl">{workspace.emoji || '🚀'}</span>
-                        <Input className="text-2xl font-bold border-none bg-transparent focus:ring-0 px-0" value={workspace.name}
+                        <span className="hidden sm:block shrink-0 text-xl bg-[var(--bg-hover)] p-2 rounded-xl">{workspace.emoji || '🚀'}</span>
+                        <Input className="text-xl sm:text-2xl font-bold border-none bg-transparent focus:ring-0 px-0" value={workspace.name}
                             onChange={(e) => handleUpdate({ name: e.target.value })} placeholder="Workspace Name" />
                     </div>
                 </div>
-                <Button variant="primary" leftIcon={<Save className="w-4 h-4" />} onClick={onClose}>
-                    Save
+                <Button variant="primary" size="xs" leftIcon={<Save className="w-4 h-4" />} onClick={onClose}>
+                    <span className="hidden sm:inline">Save</span> 
                 </Button>
             </div>
 
             {/* Quick Add New Website */}
             <Card className="p-5 bg-[var(--bg-card)]">
-                <form onSubmit={handleQuickAdd} className="flex gap-4 items-end">
+                <form onSubmit={handleQuickAdd} className="sm:flex gap-4 items-end space-y-2 sm:space-y-0">
                     <div className="flex-1 space-y-2">
                         <Input
                             type="text"
@@ -125,9 +125,9 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
                             className="bg-[var(--bg-app)] border-[var(--border-main)]"
                         />
                     </div>
-                    <Button type="submit" variant="primary" className="h-10 px-6">
+                    <Button type="submit" variant="primary" className="h-10 px-6 w-full sm:w-auto">
                         <Plus className="w-4 h-4 mr-2" />
-                        Add Tab
+                        Add
                     </Button>
                 </form>
             </Card>
@@ -148,7 +148,7 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
                             onDragStart={() => handleDragStart(index)}
                             onDragOver={(e) => handleDragOver(e, index)}
                             onDragEnd={handleDragEnd}
-                            className={`flex flex-col p-3 bg-[var(--bg-card)] rounded-[14px] border transition-all duration-150 group shadow-sm ${draggedIndex === index ? 'opacity-40 border-dashed border-[var(--color-primary)]' : 'border-[var(--border-main)] hover:border-[var(--text-muted)]'
+                            className={`flex flex-col p-3 bg-[var(--bg-card)] rounded-[14px] border transition-all duration-150 group ${draggedIndex === index ? 'opacity-40 border-dashed border-[var(--color-primary)]' : 'border-[var(--border-main)] hover:border-[var(--text-muted)]'
                                 }`}
                         >
                             <div className="flex items-center gap-4 w-full">
@@ -248,17 +248,17 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
                                             <option value="open_new">Always Open New Tab</option>
                                             <option value="ignore">Ignore Rule</option>
                                         </select>
-                                    </div>x``
+                                    </div>
                                 </div>
                             )}
                         </div>
                     ))}
 
                     {workspace.websites.length === 0 && (
-                        <div className="text-center py-12 border-2 border-dashed border-[var(--border-main)] rounded-[18px] bg-[var(--bg-card)]">
-                            <Globe className="w-8 h-8 text-[var(--text-muted)] mx-auto mb-3 opacity-40" />
-                            <p className="text-sm text-[var(--text-secondary)]">Your environment collection is empty.</p>
-                            <p className="text-xs text-[var(--text-muted)] mt-1">Insert target links above to deploy this workspace.</p>
+                        <div className="text-center py-12 border border-dashed border-[var(--border-upload)] rounded-[18px] bg-[var(--bg-card)]">
+                            <Globe className="w-8 h-8 text-[var(--text-muted)] mx-auto opacity-40" />
+                            <p className="text-md sm:text-sm text-[var(--text-secondary)]">Your environment collection is empty.</p>
+                            <p className="text-[10px] sm:text-xs text-[var(--text-muted)] mt-1">Add websites to your workspace.</p>
                         </div>
                     )}
                 </div>

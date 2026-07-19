@@ -18,7 +18,7 @@ export const Switch: React.FC<SwitchProps> = ({ checked, onChange, disabled = fa
             disabled={disabled}
             onClick={() => !disabled && onChange(!checked)}
             className={cn(
-                "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-0",
+                "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-0",
                 checked ? "bg-[var(--color-success)]" : "bg-[var(--border-main)]",
                 disabled && "opacity-50 cursor-not-allowed",
                 className

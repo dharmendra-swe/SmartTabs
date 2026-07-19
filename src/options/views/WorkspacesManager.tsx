@@ -53,12 +53,12 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
                 </Button>
             </div>
 
-            <div className="flex items-center gap-4 bg-white p-2 rounded-[16px] border border-[#E5E7EB]">
+            <div className="flex items-center gap-3 bg-white sm:p-1 rounded-[12px] border border-[#E5E7EB] overflow-hidden">
                 <Input
                     placeholder="Search workspaces..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    leftIcon={<Search className="w-4 h-4" />}
+                    leftIcon={<Search className="w-3.5 h-3.5" />}
                     className="border-none shadow-none focus:ring-0"
                 />
             </div>
@@ -69,7 +69,7 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
                         <div className="p-5 flex-1">
                             <div className="flex justify-between items-start mb-4">
                                 <div
-                                    className="w-12 h-12 rounded-[14px] flex items-center justify-center text-2xl shadow-sm"
+                                    className="w-12 h-12 rounded-[14px] flex items-center justify-center text-2xl"
                                     style={{ backgroundColor: `${workspace.color}15`, color: workspace.color, border: `1px solid ${workspace.color}30` }}
                                 >
                                     {workspace.emoji}
@@ -122,7 +122,7 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
 
                 {/* SCENARIO 2: No workspaces exist at all (Initial state) */}
                 {workspaces.length === 0 && (
-                    <Card className="col-span-full p-4 sm:p-6 md:p-8 lg:p-12 text-center border-dashed border-2 border-[var(--border-main)] bg-[var(--bg-hover)]">
+                    <Card className="col-span-full p-4 sm:p-6 md:p-8 lg:p-12 text-center border-dashed border border-[var(--border-upload)] bg-[var(--bg-hover)]">
                         <FolderOpenDot className="w-8 h-8 text-[var(--text-secondary)] mx-auto mb-2" />
                         <h3 className="text-sm sm:text-lg font-medium text-[var(--text-primary)] mb-2">No workspaces found.</h3>
                         <p className="text-xs sm:text-md text-[var(--text-secondary)] mb-2 sm:mb-4 md:mb-6">Create your first workspace to start organizing your workflow.</p>

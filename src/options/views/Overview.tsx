@@ -112,7 +112,7 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
             <div>
                 <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Recent Workspaces</h2>
                 {workspaces.length === 0 ? (
-                    <Card className="p-12 text-center border-dashed border-2 border-[var(--border-main)] bg-[var(--bg-hover)]">
+                    <Card className="p-12 text-center border-dashed border border-[var(--border-upload)] bg-[var(--bg-hover)]">
                         <FolderOpenDot className="w-8 h-8 text-[var(--text-secondary)] mx-auto mb-2" />
                         <h3 className="text-lg font-medium text-[var(--text-primary)] mb-2">No workspaces found.</h3>
                         <p className="text-[var(--text-secondary)] mb-6">Create your first workspace to start organizing your workflow.</p>

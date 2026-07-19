@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LayoutDashboard, FolderKanban, Calendar, BarChart3, Menu, X, Settings as SettingsIcon, Puzzle  } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Calendar, BarChart3, Menu, X, Settings as SettingsIcon  } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useAnalyticsStore } from '@/stores/analyticsStore';
@@ -79,7 +79,7 @@ export const DashboardLayout: React.FC = () => {
 
             {/* Sidebar Navigation Framework (Desktop & Responsive Mobile Slide Layout) */}
             <aside className={`fixed inset-y-0 left-0 w-64 bg-[var(--bg-card)] border-r border-[var(--border-main)] flex flex-col z-50 lg:z-30 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-                <div className="px-4 py-3 border-b border-[var(--border-main)] mb-4 flex items-center justify-between">
+                <div className="px-4 py-3 border-b border-[var(--border-main)] mb-2 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <img src={"/icons/logo.png"} alt="SmartTabs Logo" className="w-7 h-7" />
                         <span className="font-semibold text-[var(--text-primary)] text-lg tracking-tight">SmartTabs</span>
@@ -113,10 +113,10 @@ export const DashboardLayout: React.FC = () => {
                 <div className="p-4 border-t border-[var(--border-main)]">
                     <div className="bg-[var(--bg-app)] p-4 rounded-[14px] border border-[var(--border-main)]">
                         <p className="text-xs font-medium text-[var(--text-primary)] mb-1">Explore New Tools</p>
-                        <p className="text-[11px] text-[var(--text-secondary)] mb-3">Less friction. More focus. Professional Chrome extensions designed for the way you work.</p>
-                        <button className="w-full bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-primary)] text-xs font-medium py-1.5 rounded-[10px] hover:bg-[var(--bg-hover)] transition-colors cursor-default">
-                            Discover Extensions <Puzzle  className="w-4 h-4" />
-                        </button>
+                        <p className="text-[10px] text-[var(--text-secondary)]">Less friction. More focus.Chrome extensions designed for the way you work.</p>
+                        {/* <button className="w-full bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-primary)] text-xs font-medium py-1.5 rounded-[10px] hover:bg-[var(--bg-hover)] transition-colors cursor-default">
+                            Discover Extensions
+                        </button> */}
                     </div>
                 </div>
             </aside>

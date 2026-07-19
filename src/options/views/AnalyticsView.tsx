@@ -91,7 +91,7 @@ export const AnalyticsView: React.FC = () => {
                         No launch execution histories detected in current chrome node.
                     </div>
                 ) : (
-                    <div className="divide-y divide-[var(--border-main)]">
+                        <div className="divide-y divide-[var(--border-upload)]">
                         {Object.values(records).map(record => (
                             <div key={record.date} className="py-3.5 flex justify-between text-sm">
                                 <span className="font-medium text-[var(--text-primary)]">{record.date}</span>

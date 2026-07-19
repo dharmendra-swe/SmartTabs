@@ -40,7 +40,7 @@ export const SchedulesView: React.FC = () => {
                 <p className="text-sm text-[var(--text-secondary)] mt-1">Set your workspaces to open automatically at specific times.</p>
             </div>
 
-            <Card className="p-6 bg-[var(--bg-card)] border-[var(--border-main)] shadow-sm">
+            <Card className="p-6 bg-[var(--bg-card)] border-[var(--border-main)]">
                 <form onSubmit={handleCreateSchedule} className="flex items-end gap-4">
                     <div className="flex-1">
                         <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">Workspace</label>
@@ -80,7 +80,7 @@ export const SchedulesView: React.FC = () => {
 
             <div className="space-y-3">
                 {alarms.length === 0 ? (
-                    <div className="text-center py-12 border-2 border-dashed border-[var(--border-main)] rounded-[18px] bg-[var(--bg-card)]">
+                    <div className="text-center py-12 border border-dashed border-[var(--border-upload)] rounded-[18px] bg-[var(--bg-card)]">
                         <Calendar className="w-8 h-8 text-[var(--text-muted)] mx-auto mb-3 opacity-50" />
                         <p className="text-sm text-[var(--text-secondary)]">No schedules active.</p>
                     </div>
@@ -107,7 +107,7 @@ export const SchedulesView: React.FC = () => {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleDelete(wsId)}
-                                    className="opacity-0 group-hover:opacity-100 text-[var(--brand-danger)] hover:bg-[var(--bg-hover)] transition-all"
+                                    className="opacity-0 group-hover:opacity-100 text-[var(--color-danger)] hover:bg-[var(--bg-hover)] transition-all"
                                 >
                                     <Trash2 className="w-4 h-4" />
                                 </Button>

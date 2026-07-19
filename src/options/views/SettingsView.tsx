@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Monitor, Zap, ShieldAlert, Download, Upload, RefreshCw, DatabaseBackup } from 'lucide-react';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
@@ -13,26 +13,15 @@ export const SettingsView: React.FC = () => {
     const { workspaces, setWorkspaces } = useWorkspaceStore();
 
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [logStatus, setLogStatus] = useState<{ text: string; error: boolean } | null>(null);
-    const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(false);
-
-    // Track real-time changes of the environment system theme structure
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            setSystemPrefersDark(mediaQuery.matches);
-
-            const handler = (e: MediaQueryListEvent) => setSystemPrefersDark(e.matches);
-            mediaQuery.addEventListener('change', handler);
-            return () => mediaQuery.removeEventListener('change', handler);
-        }
-    }, []);
-
-    // Evaluate current state base parameters
-    const isDarkTheme = settings.theme === 'dark' || (settings.theme === 'system' && systemPrefersDark);
-
+    const [logStatus, setLogStatus] = useState<{ text: string; error: boolean } | null>(null); 
+    const isDarkTheme = settings.theme === 'dark'; 
     const handleThemeToggle = (checked: boolean) => {
-        setTheme(checked ? 'dark' : 'light');
+        const newTheme = checked ? 'dark' : 'light';
+        setTheme(newTheme); 
+        if (typeof document !== 'undefined') {
+            document.documentElement.classList.remove('light', 'dark');
+            document.documentElement.classList.add(newTheme);
+        }
     };
 
     const handleExport = () => {
@@ -95,7 +84,7 @@ export const SettingsView: React.FC = () => {
             </div>
 
             {logStatus && (
-                <div className={`p-4 rounded-[14px] text-sm font-medium ${logStatus.error ? 'bg-[var(--bg-app)] text-[var(--color-danger)] border border-[var(--color-danger)]' : 'bg-[var(--bg-app)] text-[var(--color-brand-success)] border border-[var(--color-brand-success)]'}`}>
+                <div className={`p-4 rounded-[14px] text-sm font-medium ${logStatus.error ? 'bg-[var(--bg-app)] text-[var(--color-danger)] border border-[var(--color-danger)]' : 'bg-[var(--bg-app)] text-[var(--color-success)] border border-[var(--color-success)]'}`}>
                     {logStatus.text}
                 </div>
             )}
@@ -104,14 +93,14 @@ export const SettingsView: React.FC = () => {
                 {/* Appearance Section */}
                 <Card className="overflow-visible">
                     <div className="p-5 border-b border-[var(--border-main)] flex items-center gap-3">
-                        <Monitor className="w-5 h-5 text-[var(--color-brand-primary)] shrink-0" />
+                        <Monitor className="w-5 h-5 text-[var(--color-primary)] shrink-0" />
                         <h2 className="text-base sm:text-lg font-semibold text-[var(--text-primary)]">Appearance</h2>
                     </div>
                     <div className="p-5 space-y-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm sm:text-base font-medium text-[var(--text-primary)]">Dark Mode</p>
-                                <p className="text-xs sm:text-sm text-[var(--text-secondary)]">Automatically defaults to your system preference.</p>
+                                <p className="text-xs sm:text-sm text-[var(--text-secondary)]">Toggle between light and dark themes.</p>
                             </div>
                             <Switch
                                 checked={isDarkTheme}
@@ -135,7 +124,7 @@ export const SettingsView: React.FC = () => {
                 {/* Launch Engine Section */}
                 <Card className="overflow-visible">
                     <div className="p-5 border-b border-[var(--border-main)] flex items-center gap-3">
-                        <Zap className="w-5 h-5 text-[var(--color-brand-primary)] shrink-0" />
+                        <Zap className="w-5 h-5 text-[var(--color-primary)] shrink-0" />
                         <h2 className="text-base sm:text-lg font-semibold text-[var(--text-primary)]">Launch Engine</h2>
                     </div>
                     <div className="p-5 space-y-6">
@@ -172,7 +161,7 @@ export const SettingsView: React.FC = () => {
                 {/* Backup & Portability Section */}
                 <Card className="overflow-visible">
                     <div className="p-5 border-b border-[var(--border-main)] flex items-center gap-3">
-                        <RefreshCw className="w-5 h-5 text-[var(--color-brand-primary)] shrink-0" />
+                        <RefreshCw className="w-5 h-5 text-[var(--color-primary)] shrink-0" />
                         <h2 className="text-base sm:text-lg font-semibold text-[var(--text-primary)]">Backup & Portability</h2>
                     </div>
                     <div className="p-5 space-y-4">
@@ -196,7 +185,7 @@ export const SettingsView: React.FC = () => {
                 <Card className="border-[var(--color-danger)] border bg-[var(--bg-card)]">
                     <div className="p-5 border-b border-[var(--color-danger)]/30 flex items-center gap-3 bg-[var(--color-danger)]/5">
                         <ShieldAlert className="w-5 h-5 text-[var(--color-danger)]" />
-                        <h2 className="text-base sm:text-lg font-semibold text-[var(--var-brand-danger)] text-[var(--color-danger)]">Danger Zone</h2>
+                        <h2 className="text-base sm:text-lg font-semibold text-[var(--color-danger)]">Danger Zone</h2>
                     </div>
                     <div className="p-5 sm:flex items-center justify-between">
                         <div className="mb-2 sm:mb-0">

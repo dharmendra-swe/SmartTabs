@@ -68,7 +68,7 @@ export const Workspaces: React.FC = () => {
             {/* Create Modal (Inline for sleekness) */}
             {isCreateModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in">
-                    <Card className="w-full max-w-md p-6 bg-[var(--bg-card)] shadow-2xl scale-in-95 animate-in duration-200">
+                    <Card className="w-full max-w-md p-6 bg-[var(--bg-card)] scale-in-95 animate-in duration-200">
                         <h2 className="text-lg font-bold text-[var(--text-primary)] mb-4">Create Workspace</h2>
                         <form onSubmit={handleCreateWorkspace} className="space-y-4">
                             <div className="flex gap-3">
@@ -103,7 +103,7 @@ export const Workspaces: React.FC = () => {
 
             {/* Workspace Grid */}
             {workspaces.length === 0 ? (
-                <div className="text-center py-20 bg-[var(--bg-card)] rounded-[24px] border border-[var(--border-subtle)]">
+                <div className="text-center py-20 bg-[var(--bg-card)] rounded-[24px] border border-[var(--border-upload)]">
                     <FolderOpenDot className="w-12 h-12 text-[var(--text-muted)] mx-auto mb-4 opacity-50" />
                     <h3 className="text-lg font-medium text-[var(--text-primary)]">No Workspaces Found</h3>
                     <p className="text-sm text-[var(--text-secondary)] mt-1 mb-6">Create your first workspace to start organizing your tabs.</p>
@@ -131,7 +131,7 @@ export const Workspaces: React.FC = () => {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="opacity-0 group-hover:opacity-100 -mr-2 -mt-2 hover:text-[var(--brand-danger)]"
+                                    className="opacity-0 group-hover:opacity-100 -mr-2 -mt-2 hover:text-[var(--color-danger)]"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         deleteWorkspace(workspace.id);

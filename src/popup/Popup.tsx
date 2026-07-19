@@ -81,7 +81,7 @@ export const Popup: React.FC = () => {
             {/* Footer Handle */}
             <div className="px-4 py-2 bg-[var(--bg-card)] border-t border-[var(--border-main)] flex items-center justify-center space-x-2 text-xs text-[var(--text-muted)]">
                 <CodeXml className="w-3 h-3" />
-                <span>Developed by <a href="https://www.linkedin.com/in/dharmendra-swe/" target="_blank" rel="noopener noreferrer" className="text-[var(--text-primary)] hover:underline">Dharmendra</a></span>
+                <span>Developed by <a href="https://www.linkedin.com/in/dharmendra-swe/" target="_blank" rel="noopener noreferrer" className="text-[var(--text-primary)] hover:underline">dharmendra</a></span>
             </div>
         </div>
     );
