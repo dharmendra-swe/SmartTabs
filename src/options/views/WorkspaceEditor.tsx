@@ -84,7 +84,7 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
     };
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 animate-in slide-in-from-right-8 duration-300">
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500"> 
 
             {/* Header Toolbar */}
             <div className="flex items-center justify-between">
@@ -98,7 +98,8 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
                             onChange={(e) => handleUpdate({ name: e.target.value })} placeholder="Workspace Name" />
                     </div>
                 </div>
-                <Button variant="primary" size="xs" leftIcon={<Save className="w-4 h-4" />} onClick={onClose}>
+                <Button variant="primary" onClick={onClose}>
+                    <Save className="w-4 h-4 sm:mr-2" />
                     <span className="hidden sm:inline">Save</span> 
                 </Button>
             </div>

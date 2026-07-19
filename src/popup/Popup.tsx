@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Settings, CodeXml, Plus, FolderOpenDot } from 'lucide-react';
+import { Settings, CodeXml, Plus, FolderOpenDot, Search } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
-import { Button } from '@/components/ui/Button';
-import { SearchBar } from './SearchBar';
+import { Button } from '@/components/ui/Button'; 
 import { QuickLaunch } from './QuickLaunch';
 import '@/globals.css';
 import { useTheme } from '@/hooks/useTheme';
 import { Card } from '@/components/ui/Card';
+import { Input } from '@/components/forms/Input';
 
 export const Popup: React.FC = () => {
     useTheme();
@@ -54,7 +54,15 @@ export const Popup: React.FC = () => {
             </div>
 
             {/* Micro Component Search */}
-            <SearchBar value={searchQuery} onChange={setSearchQuery} />
+            <div className="p-4 shrink-0 ">
+                <Input
+                    placeholder="Search workspaces..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    leftIcon={<Search className="w-3.5 h-3.5" />}
+                />
+            </div>
+
             {/* List Pipeline */}
             <main className="flex-1 overflow-hidden">
                 {filteredWorkspaces.length === 0 ? (
@@ -66,7 +74,7 @@ export const Popup: React.FC = () => {
                             <Button size="xs" onClick={openOptions} className="text-xs mb-0.5">
                                 <Plus className="w-4 h-4 mr-1" />
                                 Create
-                            </Button> 
+                            </Button>
                         </Card>
                     </div>
                 ) : (

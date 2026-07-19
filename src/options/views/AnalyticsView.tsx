@@ -3,6 +3,7 @@ import { BarChart3, Clock, Flame, CalendarRange } from 'lucide-react';
 import { useAnalyticsStore } from '@/stores/analyticsStore';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { Card } from '@/components/ui/Card';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 export const AnalyticsView: React.FC = () => {
     const { records } = useAnalyticsStore();
@@ -30,11 +31,9 @@ export const AnalyticsView: React.FC = () => {
     const topWorkspaceName = workspaces.find(w => w.id === topWorkspaceId)?.name || "None Yet";
 
     return (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div>
-                <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-1">Productivity Insights</h1>
-                <p className="text-[var(--text-secondary)]">Real-time statistics for your sequential workspace launches.</p>
-            </div>
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500"> 
+             
+            <PageHeader title="Productivity Insights" subtitle="Real-time statistics for your sequential workspace launches." />
 
             {/* Metric Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

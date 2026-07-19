@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Rocket, Plus, ArrowRight, Activity, BarChart3, FolderKanban, Star, FolderOpenDot } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { WorkspaceEngine } from '@/services/workspaceEngine';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 interface OverviewProps {
     onNavigate: (view: 'workspaces' | 'schedules' | 'analytics' | 'settings') => void;
@@ -13,28 +14,36 @@ interface OverviewProps {
 export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
     const { workspaces } = useWorkspaceStore();
     const { settings } = useSettingsStore();
-
     const totalWebsites = workspaces.reduce((acc, ws) => acc + ws.websites.length, 0);
     const favoriteWorkspaces = workspaces.filter(ws => ws.isFavorite);
     const recentWorkspaces = [...workspaces].sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 4);
-
     const handleLaunch = async (workspaceId: string) => {
         const workspace = workspaces.find(w => w.id === workspaceId);
         if (workspace) {
             await WorkspaceEngine.launchWorkspace(workspace, settings);
         }
     };
+    const [greeting, setGreeting] = useState('Hello');
+
+    useEffect(() => {
+        const updateGreeting = () => {
+            const currentHour = new Date().getHours();
+            if (currentHour < 12) {
+                setGreeting('Good Morning');
+            } else if (currentHour < 17) {
+                setGreeting('Good Afternoon');
+            } else {
+                setGreeting('Good Evening');
+            }
+        };
+        updateGreeting();
+    }, []);
+    const displayTitle = `${greeting} 👋`;
 
     return (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-
-            {/* Header */}
-            <div className="flex items-end justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-1">Good Morning 👋</h1>
-                    <p className="text-[var(--text-secondary)]">Here is your workspace overview for today.</p>
-                </div>
-            </div>
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500"> 
+             
+            <PageHeader title={displayTitle} subtitle="Real-time statistics for your sequential workspace launches." />
 
             {/* Stats Row */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

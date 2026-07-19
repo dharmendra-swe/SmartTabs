@@ -18,7 +18,7 @@ export const Switch: React.FC<SwitchProps> = ({ checked, onChange, disabled = fa
             disabled={disabled}
             onClick={() => !disabled && onChange(!checked)}
             className={cn(
-                "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-0",
+                "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer items-center px-0.5 rounded-full border border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-0",
                 checked ? "bg-[var(--color-success)]" : "bg-[var(--border-main)]",
                 disabled && "opacity-50 cursor-not-allowed",
                 className
@@ -29,7 +29,7 @@ export const Switch: React.FC<SwitchProps> = ({ checked, onChange, disabled = fa
                 initial={false}
                 animate={{ x: checked ? 20 : 0 }}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                className="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0"
+                className="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow ring-0"
             />
         </button>
     );

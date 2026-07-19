@@ -6,6 +6,7 @@ import { WorkspaceEngine } from '@/services/workspaceEngine';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/forms/Input';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 interface WorkspacesManagerProps {
     onEdit: (id: string) => void;
@@ -45,23 +46,19 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="sm:flex items-center justify-between">
                 <div className="mb-2 sm:mb-0">
-                    <h1 className="text-2xl font-bold text-[#0F172A] mb-1">Workspaces</h1>
-                    <p className="text-[#64748B]">Manage and organize your tab collections.</p>
+                    <PageHeader title="Workspaces" subtitle="Manage and organize your tab collections." />
                 </div>
                 <Button variant="primary" leftIcon={<Plus className="w-4 h-4" />} onClick={handleCreateNew}>
                     Create Workspace
                 </Button>
             </div>
 
-            <div className="flex items-center gap-3 bg-white sm:p-1 rounded-[12px] border border-[#E5E7EB] overflow-hidden">
-                <Input
-                    placeholder="Search workspaces..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    leftIcon={<Search className="w-3.5 h-3.5" />}
-                    className="border-none shadow-none focus:ring-0"
-                />
-            </div>
+            <Input
+                placeholder="Search workspaces..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                leftIcon={<Search className="w-3.5 h-3.5" />}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {filteredWorkspaces.map(workspace => (

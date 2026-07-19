@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/Card';
 import { Switch } from '@/components/ui/Switch';
 import { Button } from '@/components/ui/Button';
 import { DuplicateStrategy } from '@/types';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 export const SettingsView: React.FC = () => {
     const { settings, updateSettings, setTheme, setGlobalDelay } = useSettingsStore();
@@ -77,11 +78,9 @@ export const SettingsView: React.FC = () => {
     };
 
     return (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-3xl">
-            <div>
-                <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-1">Settings</h1>
-                <p className="text-[var(--text-secondary)]">Configure your SmartTabs experience.</p>
-            </div>
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500"> 
+            
+            <PageHeader title="Settings" subtitle="Configure your SmartTabs experience." />
 
             {logStatus && (
                 <div className={`p-4 rounded-[14px] text-sm font-medium ${logStatus.error ? 'bg-[var(--bg-app)] text-[var(--color-danger)] border border-[var(--color-danger)]' : 'bg-[var(--bg-app)] text-[var(--color-success)] border border-[var(--color-success)]'}`}>

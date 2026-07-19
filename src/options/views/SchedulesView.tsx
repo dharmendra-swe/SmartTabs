@@ -4,6 +4,7 @@ import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { SchedulerService } from '@/services/scheduler';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 export const SchedulesView: React.FC = () => {
     const { workspaces } = useWorkspaceStore();
@@ -34,11 +35,9 @@ export const SchedulesView: React.FC = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto animate-in fade-in duration-300 space-y-6">
-            <div className="">
-                <h1 className="text-2xl font-bold text-[var(--text-primary)]">Automated Schedules</h1>
-                <p className="text-sm text-[var(--text-secondary)] mt-1">Set your workspaces to open automatically at specific times.</p>
-            </div>
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500"> 
+           
+            <PageHeader title="Automated Schedules" subtitle="Set your workspaces to open automatically at specific times." />
 
             <Card className="p-6 bg-[var(--bg-card)] border-[var(--border-main)]">
                 <form onSubmit={handleCreateSchedule} className="flex items-end gap-4">
