@@ -71,7 +71,8 @@
 
     /* Core Resets & Typography */
     html,
-    body {
+    body,
+    #root {
         margin: 0;
         padding: 0;
         width: 100%;
@@ -83,8 +84,8 @@
     }
 
     /* Extension Root Styles */
-    .extension-root {
-        @apply w-[300px] h-[450px];
+    body.extension-root {
+        @apply w-[300px] h-[410px];
     }
 }
 
