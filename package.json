@@ -2,7 +2,7 @@
     "name": "smarttabs",
     "version": "1.0.0",
     "private": true,
-    "description": "Open Smarter. Work Faster. A Workspace Operating System for Chrome.",
+    "description": "Organize browser workspaces, launch tabs instantly,and boost productivity with one smarttabs manager.",
     "type": "module",
     "scripts": {
         "dev": "vite",

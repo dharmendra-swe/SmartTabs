@@ -1,4 +1,4 @@
-# SmartTabs Roadmap
+# SmartTabs – Tab Manager, Browser Workspace & Session Manager Roadmap
 
 # Folder Structure (Production Ready)
 SmartTabs/

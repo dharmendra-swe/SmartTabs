@@ -1,0 +1,59 @@
+Directory structure:
+└── src/
+    ├── background/
+    │   ├── alarms.ts
+    │   ├── commands.ts
+    │   ├── notifications.ts
+    │   ├── service-worker.ts
+    │   └── startup.ts
+    ├── components/
+    │   ├── forms/
+    │   │   └── Input.tsx
+    │   └── ui/
+    │       ├── Button.tsx
+    │       ├── Card.tsx
+    │       ├── PageHeader.tsx
+    │       └── Switch.tsx
+    ├── globals.css
+    ├── hooks/
+    │   └── useTheme.ts
+    ├── options/
+    │   ├── DashboardLayout.tsx
+    │   ├── index.html
+    │   ├── main.tsx
+    │   ├── views/
+    │   │   ├── AnalyticsView.tsx
+    │   │   ├── Overview.tsx
+    │   │   ├── SchedulesView.tsx
+    │   │   ├── SettingsView.tsx
+    │   │   ├── WorkspaceEditor.tsx
+    │   │   └── WorkspacesManager.tsx
+    │   └── Workspaces.tsx
+    ├── popup/
+    │   ├── index.html
+    │   ├── main.tsx
+    │   ├── Popup.tsx
+    │   ├── QuickLaunch.tsx
+    │   └── SearchBar.tsx
+    ├── services/
+    │   ├── analytics.ts
+    │   ├── backup.ts
+    │   ├── duplicate.ts
+    │   ├── notifications.ts
+    │   ├── persistence.ts
+    │   ├── scheduler.ts
+    │   ├── storage.ts
+    │   ├── tabs.ts
+    │   ├── workspace.ts
+    │   └── workspaceEngine.ts
+    ├── stores/
+    │   ├── analyticsStore.ts
+    │   ├── settingsStore.ts
+    │   └── workspaceStore.ts
+    ├── text.txt
+    ├── types/
+    │   └── index.ts
+    ├── utils/
+    │   ├── cn.ts
+    │   └── helpers.ts
+    └── vite-env.d.ts

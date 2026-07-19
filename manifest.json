@@ -1,15 +1,15 @@
 {
     "manifest_version": 3,
-    "name": "SmartTabs",
+    "name": "SmartTabs: Tab Manager, Browser Workspace & Session Manager",
     "version": "1.0.0",
-    "description": "Open Smarter. Work Faster",
+    "description": "Organize browser workspaces, launch tabs instantly,and boost productivity with one smarttabs manager.",
     "options_ui": {
         "page": "src/options/index.html",
         "open_in_tab": true
     },
     "action": {
         "default_popup": "src/popup/index.html",
-        "default_title": "SmartTabs : "
+        "default_title": "SmartTabs: Tab Manager, Browser Workspace & Session Manager"
     },
     "background": {
         "service_worker": "src/background/service-worker.ts",
