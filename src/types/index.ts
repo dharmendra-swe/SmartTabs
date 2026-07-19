@@ -1,4 +1,3 @@
-// src/types/index.ts में इन्हें अपडेट करें:
 export type DuplicateStrategy = 'focus_existing' | 'open_new' | 'ignore';  
 export type OpenMode = 'current_window' | 'new_window' | 'new_tab';
 export type ThemePreference = 'system' | 'light' | 'dark'; 

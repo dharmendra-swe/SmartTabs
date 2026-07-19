@@ -84,7 +84,7 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
     };
 
     return (
-        <div className="max-w-4xl mx-auto space-y-8 animate-in slide-in-from-right-8 duration-300 pb-12">
+        <div className="max-w-4xl mx-auto space-y-6 animate-in slide-in-from-right-8 duration-300">
 
             {/* Header Toolbar */}
             <div className="flex items-center justify-between">
@@ -148,7 +148,7 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
                             onDragStart={() => handleDragStart(index)}
                             onDragOver={(e) => handleDragOver(e, index)}
                             onDragEnd={handleDragEnd}
-                            className={`flex flex-col p-3 bg-[var(--bg-card)] rounded-[14px] border transition-all duration-150 group shadow-sm ${draggedIndex === index ? 'opacity-40 border-dashed border-[var(--color-brand-primary)]' : 'border-[var(--border-main)] hover:border-[var(--text-muted)]'
+                            className={`flex flex-col p-3 bg-[var(--bg-card)] rounded-[14px] border transition-all duration-150 group shadow-sm ${draggedIndex === index ? 'opacity-40 border-dashed border-[var(--color-primary)]' : 'border-[var(--border-main)] hover:border-[var(--text-muted)]'
                                 }`}
                         >
                             <div className="flex items-center gap-4 w-full">
@@ -204,7 +204,7 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
                                         size="icon"
                                         title="Advanced Settings"
                                         onClick={() => setActiveAdvancedId(activeAdvancedId === site.id ? null : site.id)}
-                                        className={activeAdvancedId === site.id ? "bg-[var(--bg-hover)] text-[var(--color-brand-primary)]" : "text-[var(--text-secondary)]"}
+                                        className={activeAdvancedId === site.id ? "bg-[var(--bg-hover)] text-[var(--color-primary)]" : "text-[var(--text-secondary)]"}
                                     >
                                         <Settings2 className="w-4 h-4" />
                                     </Button>
@@ -213,7 +213,7 @@ export const WorkspaceEditor: React.FC<WorkspaceEditorProps> = ({ workspaceId, o
                                         variant="ghost"
                                         size="icon"
                                         onClick={() => removeWebsiteFromWorkspace(workspaceId, site.id)}
-                                        className="text-[var(--color-brand-danger)] hover:bg-red-50 dark:hover:bg-red-950/30"
+                                        className="text-[var(--color-danger)] hover:bg-red-50 dark:hover:bg-red-950/30"
                                         title="Delete"
                                     >
                                         <Trash2 className="w-4 h-4" />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, MoreVertical, Rocket,  FolderPlus } from 'lucide-react';
+import { Plus, MoreVertical, Rocket, FolderOpenDot } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { Card } from '@/components/ui/Card';
@@ -104,7 +104,7 @@ export const Workspaces: React.FC = () => {
             {/* Workspace Grid */}
             {workspaces.length === 0 ? (
                 <div className="text-center py-20 bg-[var(--bg-card)] rounded-[24px] border border-[var(--border-subtle)]">
-                    <FolderPlus className="w-12 h-12 text-[var(--text-muted)] mx-auto mb-4 opacity-50" />
+                    <FolderOpenDot className="w-12 h-12 text-[var(--text-muted)] mx-auto mb-4 opacity-50" />
                     <h3 className="text-lg font-medium text-[var(--text-primary)]">No Workspaces Found</h3>
                     <p className="text-sm text-[var(--text-secondary)] mt-1 mb-6">Create your first workspace to start organizing your tabs.</p>
                     <Button variant="primary" onClick={() => setIsCreateModalOpen(true)}>Create Workspace</Button>

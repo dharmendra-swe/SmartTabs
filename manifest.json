@@ -8,8 +8,8 @@
         "open_in_tab": true
     },
     "action": {
-        "default_popup": "index.html",
-        "default_title": "SmartTabs Quick Launch"
+        "default_popup": "src/popup/index.html",
+        "default_title": "SmartTabs : "
     },
     "background": {
         "service_worker": "src/background/service-worker.ts",

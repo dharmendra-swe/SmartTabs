@@ -30,7 +30,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         "block w-full rounded-[12px] border bg-[var(--bg-card)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-colors outline-none",
                         "focus:ring-2 focus:ring-[var(--border-focus)] focus:border-transparent",
                         error
-                            ? "border-[var(--color-brand-danger)] focus:ring-[var(--color-brand-danger)]"
+                            ? "border-[var(--color-danger)] focus:ring-[var(--color-danger)]"
                             : "border-[var(--border-main)] focus:border-[var(--border-focus)]",
                         leftIcon && "pl-10",
                         rightIcon && "pr-10",
@@ -41,7 +41,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         </div>
                     )}
                 </div>
-                {error && <p className="mt-1.5 text-sm text-[var(--color-brand-danger)]">{error}</p>}
+                {error && <p className="mt-1.5 text-sm text-[var(--color-danger)]">{error}</p>}
                 {helperText && !error && <p className="mt-1.5 text-sm text-[var(--text-secondary)]">{helperText}</p>}
             </div>
         );

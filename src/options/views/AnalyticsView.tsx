@@ -30,29 +30,29 @@ export const AnalyticsView: React.FC = () => {
     const topWorkspaceName = workspaces.find(w => w.id === topWorkspaceId)?.name || "None Yet";
 
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div>
                 <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-1">Productivity Insights</h1>
                 <p className="text-[var(--text-secondary)]">Real-time statistics for your sequential workspace launches.</p>
             </div>
 
             {/* Metric Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 <Card className="p-5 flex flex-col justify-between h-32">
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-[var(--text-secondary)]">Total Openings</span>
-                        <BarChart3 className="w-5 h-5 text-[var(--color-brand-primary)]" />
+                        <BarChart3 className="w-5 h-5 text-[var(--color-primary)]" />
                     </div>
                     <div>
                         <p className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">{totalLaunches}</p>
-                        <p className="text-xs text-[var(--color-brand-success)] font-medium mt-1">⚡ Active OS Engine</p>
+                        <p className="text-xs text-[var(--color-success)] font-medium mt-1">⚡ Active OS Engine</p>
                     </div>
                 </Card>
 
                 <Card className="p-5 flex flex-col justify-between h-32">
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-[var(--text-secondary)]">Tabs Optimized</span>
-                        <Flame className="w-5 h-5 text-[var(--color-brand-danger)]" />
+                        <Flame className="w-5 h-5 text-[var(--color-danger)]" />
                     </div>
                     <div>
                         <p className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">{totalTabsOpened}</p>
@@ -63,18 +63,18 @@ export const AnalyticsView: React.FC = () => {
                 <Card className="p-5 flex flex-col justify-between h-32">
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-[var(--text-secondary)]">Avg Launch Velocity</span>
-                        <Clock className="w-5 h-5 text-[var(--color-brand-accent)]" />
+                        <Clock className="w-5 h-5 text-[var(--color-accent)]" />
                     </div>
                     <div>
                         <p className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">{avgLaunchTimeSec}s</p>
-                        <p className="text-xs text-[var(--color-brand-success)] font-medium mt-1">🚀 Zero UI blocking</p>
+                        <p className="text-xs text-[var(--color-success)] font-medium mt-1">🚀 Zero UI blocking</p>
                     </div>
                 </Card>
 
                 <Card className="p-5 flex flex-col justify-between h-32">
                     <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-[var(--text-secondary)]">Primary Space</span>
-                        <CalendarRange className="w-5 h-5 text-[var(--color-brand-warning)]" />
+                        <CalendarRange className="w-5 h-5 text-[var(--color-warning)]" />
                     </div>
                     <div>
                         <p className="text-xl font-bold text-[var(--text-primary)] truncate tracking-tight">{topWorkspaceName}</p>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rocket, Plus, ArrowRight, Activity, BarChart3, FolderKanban, Star } from 'lucide-react';
+import { Rocket, Plus, ArrowRight, Activity, BarChart3, FolderKanban, Star, FolderOpenDot } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { WorkspaceEngine } from '@/services/workspaceEngine';
@@ -26,7 +26,7 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
     };
 
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
 
             {/* Header */}
             <div className="flex items-end justify-between">
@@ -34,19 +34,12 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
                     <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-1">Good Morning 👋</h1>
                     <p className="text-[var(--text-secondary)]">Here is your workspace overview for today.</p>
                 </div>
-                <Button
-                    variant="primary"
-                    leftIcon={<Plus className="w-4 h-4" />}
-                    onClick={() => onNavigate('workspaces')}
-                >
-                    New Workspace
-                </Button>
             </div>
 
             {/* Stats Row */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card className="p-5 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-[var(--bg-app)] text-[var(--color-brand-accent)] rounded-[14px] flex items-center justify-center border border-[var(--border-subtle)]">
+                    <div className="w-12 h-12 bg-[var(--bg-app)] text-[var(--color-accent)] rounded-[14px] flex items-center justify-center border border-[var(--border-subtle)]">
                         <FolderKanban className="w-5 h-5" />
                     </div>
                     <div>
@@ -56,7 +49,7 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
                 </Card>
 
                 <Card className="p-5 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-[var(--bg-app)] text-[var(--color-brand-success)] rounded-[14px] flex items-center justify-center border border-[var(--border-subtle)]">
+                    <div className="w-12 h-12 bg-[var(--bg-app)] text-[var(--color-success)] rounded-[14px] flex items-center justify-center border border-[var(--border-subtle)]">
                         <Activity className="w-5 h-5" />
                     </div>
                     <div>
@@ -83,7 +76,7 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
             {favoriteWorkspaces.length > 0 && (
                 <div>
                     <div className="flex items-center gap-2 mb-4">
-                        <Star className="w-4 h-4 text-[var(--color-brand-warning)] fill-current" />
+                        <Star className="w-4 h-4 text-[var(--color-warning)] fill-current" />
                         <h2 className="text-lg font-semibold text-[var(--text-primary)]">Favorites</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -102,7 +95,7 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
                                         className="opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--bg-hover)]"
                                         onClick={() => handleLaunch(workspace.id)}
                                     >
-                                        <Rocket className="w-4 h-4 text-[var(--color-brand-primary)] fill-current" />
+                                        <Rocket className="w-4 h-4 text-[var(--color-primary)] fill-current" />
                                     </Button>
                                 </div>
                                 <div className="mt-auto">
@@ -119,10 +112,11 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
             <div>
                 <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Recent Workspaces</h2>
                 {workspaces.length === 0 ? (
-                    <Card className="p-12 text-center border-dashed border-2 border-[var(--border-main)] bg-transparent">
-                        <h3 className="text-lg font-medium text-[var(--text-primary)] mb-2">No workspaces yet</h3>
+                    <Card className="p-12 text-center border-dashed border-2 border-[var(--border-main)] bg-[var(--bg-hover)]">
+                        <FolderOpenDot className="w-8 h-8 text-[var(--text-secondary)] mx-auto mb-2" />
+                        <h3 className="text-lg font-medium text-[var(--text-primary)] mb-2">No workspaces found.</h3>
                         <p className="text-[var(--text-secondary)] mb-6">Create your first workspace to start organizing your workflow.</p>
-                        <Button onClick={() => onNavigate('workspaces')}>Create Workspace</Button>
+                        <Button onClick={() => onNavigate('workspaces')}> <Plus className="w-4 h-4 mr-2" />Create Workspace</Button>
                     </Card>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -141,7 +135,7 @@ export const Overview: React.FC<OverviewProps> = ({ onNavigate }) => {
                                         className="opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--bg-hover)]"
                                         onClick={() => handleLaunch(workspace.id)}
                                     >
-                                        <Rocket className="w-4 h-4 text-[var(--color-brand-primary)] fill-current" />
+                                        <Rocket className="w-4 h-4 text-[var(--color-primary)] fill-current" />
                                     </Button>
                                 </div>
                                 <div className="mt-auto">

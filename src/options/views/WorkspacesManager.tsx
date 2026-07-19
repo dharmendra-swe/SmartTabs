@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Search, Trash2, Copy, Star, Edit2, Rocket } from 'lucide-react';
+import { Plus, Search, Trash2, Copy, Star, Edit2, Rocket, FolderOpenDot } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { WorkspaceEngine } from '@/services/workspaceEngine';
@@ -16,7 +16,7 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
     const { settings } = useSettingsStore();
 
     const [searchQuery, setSearchQuery] = useState('');
- 
+
     const filteredWorkspaces = workspaces.filter(ws =>
         ws.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (ws.description || '').toLowerCase().includes(searchQuery.toLowerCase())
@@ -30,10 +30,10 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
             emoji: '🚀',
             websites: [],
             isFavorite: false,
-            isHidden: false, 
+            isHidden: false,
         });
     };
-    
+
     const handleLaunch = async (workspaceId: string) => {
         const workspace = workspaces.find(w => w.id === workspaceId);
         if (workspace) {
@@ -43,8 +43,8 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="flex items-center justify-between">
-                <div>
+            <div className="sm:flex items-center justify-between">
+                <div className="mb-2 sm:mb-0">
                     <h1 className="text-2xl font-bold text-[#0F172A] mb-1">Workspaces</h1>
                     <p className="text-[#64748B]">Manage and organize your tab collections.</p>
                 </div>
@@ -53,7 +53,7 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
                 </Button>
             </div>
 
-            <div className="flex items-center gap-4 bg-white p-2 rounded-[16px] border border-[#E5E7EB] shadow-sm">
+            <div className="flex items-center gap-4 bg-white p-2 rounded-[16px] border border-[#E5E7EB]">
                 <Input
                     placeholder="Search workspaces..."
                     value={searchQuery}
@@ -114,10 +114,22 @@ export const WorkspacesManager: React.FC<WorkspacesManagerProps> = ({ onEdit }) 
                     </Card>
                 ))}
 
-                {filteredWorkspaces.length === 0 && (
+                {workspaces.length > 0 && filteredWorkspaces.length === 0 && (
                     <div className="col-span-full py-12 text-center text-[#64748B]">
                         No workspaces found matching "{searchQuery}"
                     </div>
+                )}
+
+                {/* SCENARIO 2: No workspaces exist at all (Initial state) */}
+                {workspaces.length === 0 && (
+                    <Card className="col-span-full p-4 sm:p-6 md:p-8 lg:p-12 text-center border-dashed border-2 border-[var(--border-main)] bg-[var(--bg-hover)]">
+                        <FolderOpenDot className="w-8 h-8 text-[var(--text-secondary)] mx-auto mb-2" />
+                        <h3 className="text-sm sm:text-lg font-medium text-[var(--text-primary)] mb-2">No workspaces found.</h3>
+                        <p className="text-xs sm:text-md text-[var(--text-secondary)] mb-2 sm:mb-4 md:mb-6">Create your first workspace to start organizing your workflow.</p>
+                        <Button variant="primary" size="xs" onClick={handleCreateNew}>
+                            <Plus className="w-4 h-4" />
+                        </Button>
+                    </Card>
                 )}
             </div>
         </div>

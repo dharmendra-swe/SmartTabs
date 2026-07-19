@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { Monitor, Zap, ShieldAlert, Download, Upload, RefreshCw, ChevronDown } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { Monitor, Zap, ShieldAlert, Download, Upload, RefreshCw, DatabaseBackup } from 'lucide-react';
 import { useSettingsStore } from '@/stores/settingsStore';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { BackupService } from '@/services/backup';
 import { Card } from '@/components/ui/Card';
 import { Switch } from '@/components/ui/Switch';
 import { Button } from '@/components/ui/Button';
-import { ThemePreference, DuplicateStrategy } from '@/types';
+import { DuplicateStrategy } from '@/types';
 
 export const SettingsView: React.FC = () => {
     const { settings, updateSettings, setTheme, setGlobalDelay } = useSettingsStore();
@@ -14,12 +14,31 @@ export const SettingsView: React.FC = () => {
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [logStatus, setLogStatus] = useState<{ text: string; error: boolean } | null>(null);
+    const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(false);
+
+    // Track real-time changes of the environment system theme structure
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            setSystemPrefersDark(mediaQuery.matches);
+
+            const handler = (e: MediaQueryListEvent) => setSystemPrefersDark(e.matches);
+            mediaQuery.addEventListener('change', handler);
+            return () => mediaQuery.removeEventListener('change', handler);
+        }
+    }, []);
+
+    // Evaluate current state base parameters
+    const isDarkTheme = settings.theme === 'dark' || (settings.theme === 'system' && systemPrefersDark);
+
+    const handleThemeToggle = (checked: boolean) => {
+        setTheme(checked ? 'dark' : 'light');
+    };
 
     const handleExport = () => {
         try {
             const dataStr = BackupService.exportData(workspaces);
             const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-
             const exportFileDefaultName = `smarttabs_backup_${new Date().toISOString().split('T')[0]}.json`;
 
             const linkElement = document.createElement('a');
@@ -69,14 +88,14 @@ export const SettingsView: React.FC = () => {
     };
 
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-3xl">
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-3xl">
             <div>
                 <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-1">Settings</h1>
                 <p className="text-[var(--text-secondary)]">Configure your SmartTabs experience.</p>
             </div>
 
             {logStatus && (
-                <div className={`p-4 rounded-[14px] text-sm font-medium ${logStatus.error ? 'bg-[var(--bg-app)] text-[var(--color-brand-danger)] border border-[var(--color-brand-danger)]' : 'bg-[var(--bg-app)] text-[var(--color-brand-success)] border border-[var(--color-brand-success)]'}`}>
+                <div className={`p-4 rounded-[14px] text-sm font-medium ${logStatus.error ? 'bg-[var(--bg-app)] text-[var(--color-danger)] border border-[var(--color-danger)]' : 'bg-[var(--bg-app)] text-[var(--color-brand-success)] border border-[var(--color-brand-success)]'}`}>
                     {logStatus.text}
                 </div>
             )}
@@ -85,36 +104,25 @@ export const SettingsView: React.FC = () => {
                 {/* Appearance Section */}
                 <Card className="overflow-visible">
                     <div className="p-5 border-b border-[var(--border-main)] flex items-center gap-3">
-                        <Monitor className="w-5 h-5 text-[var(--color-brand-primary)]" />
-                        <h2 className="text-lg font-semibold text-[var(--text-primary)]">Appearance</h2>
+                        <Monitor className="w-5 h-5 text-[var(--color-brand-primary)] shrink-0" />
+                        <h2 className="text-base sm:text-lg font-semibold text-[var(--text-primary)]">Appearance</h2>
                     </div>
                     <div className="p-5 space-y-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="font-medium text-[var(--text-primary)]">Theme</p>
-                                <p className="text-sm text-[var(--text-secondary)]">Select your preferred interface theme.</p>
+                                <p className="text-sm sm:text-base font-medium text-[var(--text-primary)]">Dark Mode</p>
+                                <p className="text-xs sm:text-sm text-[var(--text-secondary)]">Automatically defaults to your system preference.</p>
                             </div>
-                            <div className="relative">
-                                <select
-                                    className="appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
-                                    value={settings.theme}
-                                    onChange={(e) => setTheme(e.target.value as ThemePreference)}
-                                >
-                                    <option value="system">System Default</option>
-                                    <option value="light">Light</option>
-                                    <option value="dark">Dark</option>
-                                    {/* Chevron Icon wrapper */}
-                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-[var(--text-muted)]">
-                                        <ChevronDown size={18} />
-                                    </div>
-                                </select>
-                            </div>
+                            <Switch
+                                checked={isDarkTheme}
+                                onChange={handleThemeToggle}
+                            />
                         </div>
 
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="font-medium text-[var(--text-primary)]">Interface Animations</p>
-                                <p className="text-sm text-[var(--text-secondary)]">Enable smooth transitions and hover effects.</p>
+                                <p className="text-sm sm:text-base font-medium text-[var(--text-primary)]">Interface Animations</p>
+                                <p className="text-xs sm:text-sm text-[var(--text-secondary)]">Enable smooth transitions and hover effects.</p>
                             </div>
                             <Switch
                                 checked={settings.animationsEnabled}
@@ -127,44 +135,35 @@ export const SettingsView: React.FC = () => {
                 {/* Launch Engine Section */}
                 <Card className="overflow-visible">
                     <div className="p-5 border-b border-[var(--border-main)] flex items-center gap-3">
-                        <Zap className="w-5 h-5 text-[var(--color-brand-primary)]" />
-                        <h2 className="text-lg font-semibold text-[var(--text-primary)]">Launch Engine</h2>
+                        <Zap className="w-5 h-5 text-[var(--color-brand-primary)] shrink-0" />
+                        <h2 className="text-base sm:text-lg font-semibold text-[var(--text-primary)]">Launch Engine</h2>
                     </div>
                     <div className="p-5 space-y-6">
-                        <div className="flex items-center justify-between">
-                            <div className="pr-8">
-                                <p className="font-medium text-[var(--text-primary)]">Global Launch Delay (ms)</p>
-                                <p className="text-sm text-[var(--text-secondary)]">Time between opening each tab. Prevents browser freezing on large workspaces.</p>
+                        <div className="sm:flex items-center justify-between">
+                            <div className="pr-8 mb-2 sm:mb-0">
+                                <p className="text-sm sm:text-base font-medium text-[var(--text-primary)]">Global Launch Delay (ms)</p>
+                                <p className="text-xs sm:text-sm text-[var(--text-secondary)]">Time between opening each tab. Prevents browser freezing on large workspaces.</p>
                             </div>
-                            <input
-                                type="number"
-                                min="0"
-                                step="50"
-                                className="w-24 bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
-                                value={settings.globalDelay}
-                                onChange={(e) => setGlobalDelay(parseInt(e.target.value) || 0)}
-                            />
+                            <input type="number" min="0" step="50"
+                                className="w-24 bg-[var(--bg-app)] border 
+                            border-[var(--border-main)] text-[var(--text-primary)]
+                            text-sm rounded-[10px] focus:ring-[var(--border-focus)]
+                            focus:border-[var(--border-focus)] block p-2.5
+                            outline-none" value={settings.globalDelay} onChange={(e) => setGlobalDelay(parseInt(e.target.value) || 0)} />
                         </div>
 
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="font-medium text-[var(--text-primary)]">Duplicate Strategy</p>
-                                <p className="text-sm text-[var(--text-secondary)]">How to handle websites that are already open.</p>
+                        <div className="sm:flex items-center justify-between">
+                            <div className="mb-2 sm:mb-0">
+                                <p className="text-sm sm:text-base font-medium text-[var(--text-primary)]">Duplicate Strategy</p>
+                                <p className="text-xs sm:text-sm text-[var(--text-secondary)]">How to handle websites that are already open.</p>
                             </div>
                             <div className="relative">
-                                <select
-                                    className="min-w-[190px] w-full appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
-                                    value={settings.defaultDuplicateStrategy}
-                                    onChange={(e) => updateSettings({ defaultDuplicateStrategy: e.target.value as DuplicateStrategy })}
-                                >
+                                <select className="min-w-[190px] w-full appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[10px] focus:ring-[var(--border-focus)] focus:border-[var(--border-focus)] block p-2.5 outline-none"
+                                    value={settings.defaultDuplicateStrategy} onChange={(e) => updateSettings({ defaultDuplicateStrategy: e.target.value as DuplicateStrategy })}>
                                     <option value="focus_existing">Focus Existing Tab</option>
                                     <option value="open_new">Always Open New Tab</option>
                                     <option value="ignore">Skip (Do Nothing)</option>
                                 </select>
-                                {/* Chevron Icon wrapper */}
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-[var(--text-muted)]">
-                                    <ChevronDown size={18} />
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,25 +172,20 @@ export const SettingsView: React.FC = () => {
                 {/* Backup & Portability Section */}
                 <Card className="overflow-visible">
                     <div className="p-5 border-b border-[var(--border-main)] flex items-center gap-3">
-                        <RefreshCw className="w-5 h-5 text-[var(--color-brand-primary)]" />
-                        <h2 className="text-lg font-semibold text-[var(--text-primary)]">Backup & Portability</h2>
+                        <RefreshCw className="w-5 h-5 text-[var(--color-brand-primary)] shrink-0" />
+                        <h2 className="text-base sm:text-lg font-semibold text-[var(--text-primary)]">Backup & Portability</h2>
                     </div>
                     <div className="p-5 space-y-4">
-                        <p className="text-sm text-[var(--text-secondary)]">
+                        <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
                             Migrate your custom workflows cleanly across client extension environments via data payload structural exports.
                         </p>
+
                         <div className="flex flex-wrap gap-3">
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                onChange={handleFileChange}
-                                accept=".json"
-                                className="hidden"
-                            />
-                            <Button variant="secondary" leftIcon={<Download className="w-4 h-4" />} onClick={handleExport}>
+                            <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".json" className="hidden" />
+                            <Button variant="secondary" size="xs" leftIcon={<Download className="w-4 h-4" />} onClick={handleExport}>
                                 Export Space Config
                             </Button>
-                            <Button variant="secondary" leftIcon={<Upload className="w-4 h-4" />} onClick={handleImportTrigger}>
+                            <Button variant="secondary" size="xs" leftIcon={<Upload className="w-4 h-4" />} onClick={handleImportTrigger}>
                                 Import Data Profile
                             </Button>
                         </div>
@@ -199,18 +193,19 @@ export const SettingsView: React.FC = () => {
                 </Card>
 
                 {/* Danger Zone Section */}
-                <Card className="border-[var(--color-brand-danger)] border bg-[var(--bg-card)]">
-                    <div className="p-5 border-b border-[var(--color-brand-danger)]/30 flex items-center gap-3 bg-[var(--color-brand-danger)]/5">
-                        <ShieldAlert className="w-5 h-5 text-[var(--color-brand-danger)]" />
-                        <h2 className="text-lg font-semibold text-[var(--var-brand-danger)] text-[var(--color-brand-danger)]">Danger Zone</h2>
+                <Card className="border-[var(--color-danger)] border bg-[var(--bg-card)]">
+                    <div className="p-5 border-b border-[var(--color-danger)]/30 flex items-center gap-3 bg-[var(--color-danger)]/5">
+                        <ShieldAlert className="w-5 h-5 text-[var(--color-danger)]" />
+                        <h2 className="text-base sm:text-lg font-semibold text-[var(--var-brand-danger)] text-[var(--color-danger)]">Danger Zone</h2>
                     </div>
-                    <div className="p-5 flex items-center justify-between">
-                        <div>
-                            <p className="font-semibold text-[var(--text-primary)]">Wipe Application Node Cache</p>
-                            <p className="text-sm text-[var(--text-secondary)]">Resets the system parameters and completely clears the local store schema layout state.</p>
+                    <div className="p-5 sm:flex items-center justify-between">
+                        <div className="mb-2 sm:mb-0">
+                            <p className="text-sm sm:text-base font-semibold text-[var(--text-primary)]">Wipe Application Node Cache</p>
+                            <p className="text-xs sm:text-sm text-[var(--text-secondary)]">Resets the system parameters and completely clears the local store schema layout state.</p>
                         </div>
                         <Button variant="danger" onClick={handleResetStorage}>
-                            Purge Sync
+                            <DatabaseBackup className="w-4 h-4 mr-2 inline" />
+                            <span className="hidden sm:inline">Purge</span> Sync
                         </Button>
                     </div>
                 </Card>

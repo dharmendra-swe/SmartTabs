@@ -34,19 +34,19 @@ export const SchedulesView: React.FC = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto animate-in fade-in duration-300">
-            <div className="mb-8">
+        <div className="max-w-4xl mx-auto animate-in fade-in duration-300 space-y-6">
+            <div className="">
                 <h1 className="text-2xl font-bold text-[var(--text-primary)]">Automated Schedules</h1>
                 <p className="text-sm text-[var(--text-secondary)] mt-1">Set your workspaces to open automatically at specific times.</p>
             </div>
 
-            <Card className="p-6 bg-[var(--bg-card)] border-[var(--border-main)] mb-8 shadow-sm">
+            <Card className="p-6 bg-[var(--bg-card)] border-[var(--border-main)] shadow-sm">
                 <form onSubmit={handleCreateSchedule} className="flex items-end gap-4">
                     <div className="flex-1">
                         <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">Workspace</label>
                         <div className="relative">
                             <select
-                                className="w-full appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[12px] p-2.5 pr-10 focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] transition-all outline-none" value={selectedWorkspace}
+                                className="w-full appearance-none bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[12px] p-2.5 pr-10 focus:outline-none focus:ring-1 focus:ring-[var(--border-focus)] transition-all outline-none" value={selectedWorkspace}
                                 onChange={(e) => setSelectedWorkspace(e.target.value)}
                                 required>
                                 <option value="" disabled className="bg-[var(--bg-card)] text-[var(--text-muted)]">Select Workspace...</option>
@@ -66,7 +66,7 @@ export const SchedulesView: React.FC = () => {
                         <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">Time (Daily)</label>
                         <input
                             type="time"
-                            className="bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[12px] p-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] transition-all outline-none"
+                            className="bg-[var(--bg-app)] border border-[var(--border-main)] text-[var(--text-primary)] text-sm rounded-[12px] p-2.5 focus:outline-none focus:ring-1 focus:ring-[var(--border-focus)] transition-all outline-none"
                             value={time}
                             onChange={(e) => setTime(e.target.value)}
                             required

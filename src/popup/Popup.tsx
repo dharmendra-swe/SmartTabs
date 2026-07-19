@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Settings, Rocket, CodeXml } from 'lucide-react';
+import { Settings, CodeXml, Plus, FolderOpenDot } from 'lucide-react';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
 import { Button } from '@/components/ui/Button';
 import { SearchBar } from './SearchBar';
 import { QuickLaunch } from './QuickLaunch';
 import '@/globals.css';
 import { useTheme } from '@/hooks/useTheme';
+import { Card } from '@/components/ui/Card';
 
 export const Popup: React.FC = () => {
     useTheme();
@@ -16,9 +17,9 @@ export const Popup: React.FC = () => {
     const handleLaunch = (workspaceId: string) => {
         setIsLaunching(workspaceId);
         if (typeof chrome !== 'undefined' && chrome.runtime?.sendMessage) {
-            chrome.runtime.sendMessage({ 
-                type: 'LAUNCH_WORKSPACE_ASYNC', 
-                workspaceId: workspaceId 
+            chrome.runtime.sendMessage({
+                type: 'LAUNCH_WORKSPACE_ASYNC',
+                workspaceId: workspaceId
             });
             setTimeout(() => {
                 setIsLaunching(null);
@@ -35,47 +36,50 @@ export const Popup: React.FC = () => {
         }
     };
 
-    const filteredWorkspaces = workspaces.filter(w => 
+    const filteredWorkspaces = workspaces.filter(w =>
         w.name.toLowerCase().includes(searchQuery.toLowerCase()) && !w.isHidden
     );
 
     return (
-        <div className="flex flex-col w-full h-full bg-[var(--bg-app)]  max-h-[400px]">
+        <div className="flex h-full w-full flex-col overflow-hidden bg-[var(--bg-app)]">
             {/* Header */}
-            <div className="px-4 py-4 bg-[var(--bg-card)] border-b border-[var(--border-main)] flex items-center justify-between sticky top-0 z-10">
+            <div className="shrink-0 px-4 py-3 bg-[var(--bg-card)] border-b border-[var(--border-main)] flex items-center justify-between sticky top-0 z-10">
                 <div>
-                    <h1 className="text-base font-semibold text-[var(--text-primary)]">Good Morning 👋</h1>
+                    <h1 className="text-sm font-semibold text-[var(--text-primary)]">Good Morning 👋</h1>
                     <p className="text-xs text-[var(--text-secondary)]">Ready to start today?</p>
                 </div>
-                <Button variant="ghost" size="icon" onClick={openOptions} title="Open Settings">
-                    <Settings className="w-5 h-5 text-[var(--text-secondary)]" />
+                <Button variant="ghost" className="bg-transparent! p-0!" onClick={openOptions} title="Open Settings">
+                    <Settings className="w-4.5 h-4.5 text-[var(--text-secondary)] hover:rotate-90 hover:scale-110 transition-transform" />
                 </Button>
             </div>
 
             {/* Micro Component Search */}
             <SearchBar value={searchQuery} onChange={setSearchQuery} />
-
             {/* List Pipeline */}
-            {filteredWorkspaces.length === 0 ? (
-                <div className="flex-1 text-center py-8 px-4">
-                    <Rocket className="w-8 h-8 text-[var(--border-main)] mx-auto mb-3" />
-                    <p className="text-sm text-[var(--text-secondary)]">No workspaces found.</p>
-                    {workspaces.length === 0 && (
-                        <Button variant="primary" size="sm" className="mt-4" onClick={openOptions}>
-                            Create Your First Workspace
-                        </Button>
-                    )}
-                </div>
-            ) : (
-                <QuickLaunch 
-                    workspaces={filteredWorkspaces} 
-                    isLaunching={isLaunching} 
-                    onLaunch={handleLaunch} 
-                />
-            )}
+            <main className="flex-1 overflow-hidden">
+                {filteredWorkspaces.length === 0 ? (
+                    <div className="flex justify-center px-4 pb-4">
+                        <Card className="w-full px-3 py-6 text-center border-dashed !border !border-[var(--border-upload)] bg-[var(--bg-hover)]">
+                            <FolderOpenDot className="w-6 h-6 text-[var(--text-secondary)] mx-auto mb-1" />
+                            <h3 className="text-sm font-medium text-[var(--text-primary)]">No workspaces found.</h3>
+                            <p className="text-[var(--text-secondary)] mb-2">Create your workspace.</p>
+                            <Button size="xs" onClick={openOptions} className="text-xs mb-0.5">
+                                <Plus className="w-4 h-4 mr-1" />
+                                Create
+                            </Button> 
+                        </Card>
+                    </div>
+                ) : (
+                    <QuickLaunch
+                        workspaces={filteredWorkspaces}
+                        isLaunching={isLaunching}
+                        onLaunch={handleLaunch}
+                    />
+                )}
+            </main>
 
             {/* Footer Handle */}
-            <div className="px-4 py-3 bg-[var(--bg-card)] border-t border-[var(--border-main)] flex items-center justify-center space-x-2 text-xs text-[var(--text-muted)]">
+            <div className="px-4 py-2 bg-[var(--bg-card)] border-t border-[var(--border-main)] flex items-center justify-center space-x-2 text-xs text-[var(--text-muted)]">
                 <CodeXml className="w-3 h-3" />
                 <span>Developed by <a href="https://www.linkedin.com/in/dharmendra-swe/" target="_blank" rel="noopener noreferrer" className="text-[var(--text-primary)] hover:underline">Dharmendra</a></span>
             </div>
